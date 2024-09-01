@@ -11,7 +11,18 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      colors: {
+        primary: '#3f0566',
+        secondary: '#9f763b',
+        tertiary: '#e5dcd5',
+      },
+    },
   },
   plugins: [require('daisyui')],
 };

@@ -16,14 +16,14 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(request: NextRequest) {
   // return new Response('Hello, from API!');
   const responseBody: ActionGetResponse = {
-    icon: "https://plus.unsplash.com/premium_photo-1683910767532-3a25b821f7ae?q=80&w=2816&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description: "This blink is to empower fundraising for good causes",
-    title: "Create A Fund Raising Campaign",
+    icon: "https://setita.com/brand/blink_1.png",
+    description: "We have got you covered! Get a blink to share for instant, seamless and accountable donations by Entering the details below",
+    title: "You have a fundraising goal targetted at social good?",
     label: "Label",
     "links": {
       "actions": [
         {
-          "label": "Create Campaign", // button text
+          "label": "Create Campaign (0.007 SOL)", // button text
           "href": "/blink/create",
           "parameters": [
             {
@@ -68,13 +68,13 @@ export async function GET(request: NextRequest) {
               "required": true,
             },
             {
-              "type": "checkbox",
+              "type": "radio",
               "name": "terms",
               "label": "Terms and conditions",
               "options": [
                 {
                   "value": "Yes",
-                  "label": "You agree to the setita terms and conditions. You will be charged 0.007 SOL to create this campaign",
+                  "label": "You agree to the setita terms and conditions.",
                 }
               ]
             }
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
   const payload: ActionPostResponse = await createPostResponse({
     fields: {
       transaction,
-      message: "Campaign Created successfully. Your campaign url is "+request.nextUrl.origin+"/blink/give?did="+docRef.id,
+      message: "Campaign Created successfully. Your campaign link is https://dial.to/?action=solana-action:https://setita.com/blink/give?did="+docRef.id+" Copy it and share to Donors",
     },
   });
   
