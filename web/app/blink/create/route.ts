@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   const responseBody: ActionGetResponse = {
     icon: "https://setita.com/brand/blink_1.png",
     description: "We have got you covered! Get a blink to share for instant, seamless and accountable donations by Entering the details below",
-    title: "You have a fundraising goal targetted at social good?",
+    title: "Do you have a fundraising goal targetted at social good?",
     label: "Label",
     "links": {
       "actions": [
