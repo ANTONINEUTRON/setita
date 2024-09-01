@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
   const payload: ActionPostResponse = await createPostResponse({
     fields: {
       transaction,
-      message: "Campaign Created successfully. Your campaign link is https://dial.to/?action=solana-action:https://setita.com/blink/give?did="+docRef.id+" Copy it and share to Donors",
+      message: "Campaign Created successfully. Your campaign Blink is  https://dial.to/?action=solana-action:https://setita.com/blink/give?did="+docRef.id+"  Copy and share with Donors",
     },
   });
   

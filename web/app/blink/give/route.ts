@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
         const responseBody: ActionGetResponse = {
             icon: "https://setita.com/brand/blink_2.png",
             description: userRecord.data.description,
-            title: "Donate to "+userRecord.data.title+"\n by "+userRecord.data.email,
+            title: "Donate to "+userRecord.data.title+" by "+userRecord.data.email,
             label: "Label",
             error: {
                 message: ""
