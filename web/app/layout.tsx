@@ -3,6 +3,7 @@ import { UiLayout } from '@/components/ui/ui-layout';
 import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
+import { APP_NAME } from '@/src/constants';
 
 export const metadata = {
   title: 'setita',
@@ -30,6 +31,12 @@ export default function RootLayout({
             </SolanaProvider>
           </ClusterProvider>
         </ReactQueryProvider>
+        <footer className='flex justify-center'>
+          <div className="mx-auto mt-3">
+            &copy; {new Date().getFullYear()} {"   "+APP_NAME.toLowerCase()}
+            
+          </div>
+        </footer>
       </body>
     </html>
   );

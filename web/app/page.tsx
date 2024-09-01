@@ -31,7 +31,7 @@ export default function Page() {
       {/* About us */}
       <div className='flex flex-col justify-center items-center py-10 text-lg'>
         <div className='font-semibold text-2xl'>We are currently building and integrating other features</div>
-        <div>Help us in achieving this lofty by Joining our waitlist</div>
+        <div>Help us in achieving this lofty goal by Joining our waitlist</div>
         <div>
           <WaitlistForm/>
         </div>
