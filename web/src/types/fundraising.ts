@@ -9,11 +9,17 @@ export interface Fundraising{
 }
 
 interface Details{
-    category: Category,
+    category: string,
     terms: string[],
     title: string,
     description: string,
     email: string,
+    domain: string | unknown,
 }
 
-export enum Category {education,health,environmental,community,}
+export const Category = { 
+  education: "education", 
+  health: "health", 
+  environmental: "environmental", 
+  community:"community"
+}

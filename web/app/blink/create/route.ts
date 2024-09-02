@@ -1,6 +1,5 @@
-import { cFirestore } from "@/firebaseconfig";
-import { FUNDRAISING_COLLECTION } from "@/src/constants";
 import { Category, Fundraising } from "@/src/types/fundraising";
+import { saveFundraisingToDB } from "@/src/utils/firebase_ops";
 import {
   ActionPostResponse,
   createActionHeaders,
@@ -10,8 +9,11 @@ import {
   ACTIONS_CORS_HEADERS,
 } from "@solana/actions";
 import { clusterApiUrl, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-// import { addDoc, collection } from "firebase-admin/firestore";
+
 import { NextRequest, NextResponse } from 'next/server'
+
+
+const headers = createActionHeaders();
 
 export async function GET(request: NextRequest) {
   // return new Response('Hello, from API!');
@@ -45,19 +47,19 @@ export async function GET(request: NextRequest) {
               "options": [
                 {
                   "label": "Education", 
-                  "value": Category.education.toString(),
+                  "value": Category.education,
                 },
                 {
                   "label": "Healthcare",
-                  "value": Category.health.toString(),
+                  "value": Category.health,
                 },
                 {
                   "label": "Environmental Sustainability",
-                  "value": Category.environmental.toString(),
+                  "value": Category.environmental,
                 },
                 {
                   "label": "Community Development",
-                  "value": Category.community.toString(),
+                  "value": Category.community,
                 }
               ],
             },
@@ -98,13 +100,13 @@ export async function POST(request: NextRequest) {
   
   // Connection to the Solana cluster
   const connection = new Connection(clusterApiUrl('mainnet-beta'));
+
   
   // Receiver's public key
   const recipientPublicKey = new PublicKey('EpG8VkF9Cv4iGBGYvaxAATVDEgd74VjWmsPdKcF9WGwc');
-
+  
   // Amount to be sent (0.007 SOL)
   const amountInLamports = 0.007 * 1e9;
-  
 
   const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
 
@@ -126,7 +128,7 @@ export async function POST(request: NextRequest) {
     id: "",
   }
 
-  const docRef = await saveToDB(fundraisingObj);
+  const docRef = await saveFundraisingToDB(fundraisingObj);
 
   const payload: ActionPostResponse = await createPostResponse({
     fields: {
@@ -136,16 +138,5 @@ export async function POST(request: NextRequest) {
   });
   
   return NextResponse.json(payload, { headers: ACTIONS_CORS_HEADERS });
-}
-
-async function saveToDB(fundraisingObj: Fundraising) {
-  const fcColl = cFirestore.collection(FUNDRAISING_COLLECTION);
-  //save to ipfs
-  // Create a reference to the collection
-  const docRef = await fcColl.add(fundraisingObj);
-
-  // update
-  docRef.update({ id: docRef.id });
-  return docRef;
 }
 
