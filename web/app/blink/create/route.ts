@@ -100,7 +100,6 @@ export async function POST(request: NextRequest) {
   
   // Connection to the Solana cluster
   const connection = new Connection(clusterApiUrl('mainnet-beta'));
-
   
   // Receiver's public key
   const recipientPublicKey = new PublicKey('EpG8VkF9Cv4iGBGYvaxAATVDEgd74VjWmsPdKcF9WGwc');

@@ -14,10 +14,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import * as splToken from '@solana/spl-token';
 import { getFundRaisingRecord, saveDonationRecordToDB } from "@/src/utils/firebase_ops";
 
-
-
 const headers = createActionHeaders();
-
 
 export async function GET(request: NextRequest) {
     try{
@@ -25,7 +22,6 @@ export async function GET(request: NextRequest) {
         
         // Access firebase to get donation record
         const fundRaisingData: Fundraising = await getFundRaisingRecord(donationId);
-
         
         const responseBody: ActionGetResponse = {
             icon: "https://setita.com/brand/blink_2.png",
@@ -116,24 +112,25 @@ export async function POST(request: NextRequest) {
 
         //
         const fundRasingRecord: Fundraising = await getFundRaisingRecord(donationId);
-        const recipientPublicKey = new PublicKey(fundRasingRecord.account); //get from db
+        const recipientPublicKey = new PublicKey(fundRasingRecord.account); //get from store
 
         const SOLANA_MAINNET_USDC_PUBKEY =
             new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
         const SOLANA_MAINNET_SEND_PUBKEY = new PublicKey('SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa');
 
-        // Amount to be sent (0.007 SOL)
+        // Determine Amount Based on selected currency multiplier
         const amount = DonationType.SOL ? donationData.amount * 1e9 : donationData.amount * 1e6;
 
         // Connection to the Solana cluster
         const connection = new Connection(clusterApiUrl('mainnet-beta'));
 
+        //Get blockhash
         const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
         
         // Transaction setup
         let transaction: Transaction;
 
-        // Filter and create appropriet transaction
+        // Filter and create appropriete transaction
         switch (donationData.donationType) {
             case DonationType.SEND.toString():
                 transaction = await createSPLTokenTransferTransaction(
