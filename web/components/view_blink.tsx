@@ -2,7 +2,7 @@
 import '@dialectlabs/blinks/index.css';
 import { useState, useEffect } from 'react';
 import { Action, Blink, ActionsRegistry, useAction } from "@dialectlabs/blinks";
-import { useActionSolanaWalletAdapter } from "@dialectlabs/blinks/hooks/solana";
+import { useActionSolanaWalletAdapter } from "@dialectlabs/blinks/dist/hooks/solana";
 import { clusterApiUrl } from '@solana/web3.js';
 
 // needs to be wrapped with <WalletProvider /> and <WalletModalProvider />
