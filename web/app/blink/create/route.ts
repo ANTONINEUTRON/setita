@@ -8,15 +8,11 @@ import {
   ActionPostRequest,
   ACTIONS_CORS_HEADERS,
 } from "@solana/actions";
-import { clusterApiUrl, Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 
 import { NextRequest, NextResponse } from 'next/server'
 
-
-const headers = createActionHeaders();
-
 export async function GET(request: NextRequest) {
-  // return new Response('Hello, from API!');
   const responseBody: ActionGetResponse = {
     icon: "https://setita.com/brand/blink_1.png",
     description: "We have got you covered! Get a blink to share for instant, seamless and accountable donations by Entering the details below",

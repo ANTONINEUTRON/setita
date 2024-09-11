@@ -1,6 +1,8 @@
-import WaitlistForm from '@/components/ui/waitlist_form';
+import UnfurlBlink from '@/components/view_blink';
+import WaitlistForm from '@/components/landing_page/waitlist_form';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Page() {
   return (
@@ -11,7 +13,7 @@ export default function Page() {
           <div className="flex justify-between items-center p-4 container m-auto">
             <Image src="/brand/setita.png" width="400" height="150" alt={'setita_logo'} className="h-7 w-32"/>
           
-          <GetStartedButton/>
+            <GetStartedButton/>
           </div>
         </header>
 
@@ -21,12 +23,15 @@ export default function Page() {
           <p className="max-w-xl mb-6">
             Milestone-Based Crowdfunding on Web3: Empowering Fundraisers to Build Donor Trust
           </p>
-          <Link href="https://dial.to/?action=solana-action%3Ahttps://setita.com/blink/create">
+          <Link href="/blink/view/">
+          {/* <Link href="https://dial.to/?action=solana-action%3Ahttps://setita.com/blink/create"> */}
             <button className="px-6 py-2 bg-gradient-to-tr from-primary to-secondary text-white rounded hover:bg-primary hover:shadow-2xl">
               Try out our Blink
             </button>
           </Link>
+          
         </section>
+        
       </div>
       {/* About us */}
       <div className='flex flex-col justify-center items-center py-10 text-lg'>

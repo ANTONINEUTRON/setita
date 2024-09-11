@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useCluster } from '../cluster/cluster-data-access';
 import { useAnchorProvider } from '../solana/solana-provider';
-import { useTransactionToast } from '../ui/ui-layout';
+import { useTransactionToast } from '../landing_page/ui-layout';
 
 export function useCounterProgram() {
   const { connection } = useConnection();

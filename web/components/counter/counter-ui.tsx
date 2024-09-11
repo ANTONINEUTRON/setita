@@ -2,7 +2,7 @@
 
 import { Keypair, PublicKey } from '@solana/web3.js';
 import { useMemo } from 'react';
-import { ellipsify } from '../ui/ui-layout';
+import { ellipsify } from '../landing_page/ui-layout';
 import { ExplorerLink } from '../cluster/cluster-ui';
 import {
   useCounterProgram,
