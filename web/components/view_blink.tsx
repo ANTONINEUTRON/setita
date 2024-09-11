@@ -1,5 +1,5 @@
 "use client"
-// import '@dialectlabs/blinks/index.css';
+import '@dialectlabs/blinks/index.css';
 import { useState, useEffect } from 'react';
 import { Action, Blink, ActionsRegistry, useAction } from "@dialectlabs/blinks";
 // @ts-ignore
