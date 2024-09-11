@@ -3,12 +3,11 @@ import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/src/constants';
+import Head from 'next/head';
 
 export const metadata = {
   title: 'setita',
   description: 'decentralized milestone based crowdfunding platform',
-  'dscvr: canvas: version': 'vNext',
-  'og:image': 'https://setita.com/brand/blink_1.png',
 };
 
 const links: { label: string; path: string }[] = [
@@ -24,6 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <meta property="dscvr:canvas:version" content="vNext" />
+        <meta property="og:image" content="https://setita.com/brand/blink_1.png" />
+      </Head>
       {/* <AppWalletProviders> */}
         {/* <WalletModalProvider> */}
           
