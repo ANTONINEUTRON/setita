@@ -8,6 +8,11 @@ import Head from 'next/head';
 export const metadata = {
   title: 'setita',
   description: 'decentralized milestone based crowdfunding platform',
+  other: {
+    viewport: "width=device-width, initial-scale=1",
+    "dscvr:canvas:version": "vNext",
+    "og:image": "https://setita.com/brand/blink_1.png",
+  },
 };
 
 const links: { label: string; path: string }[] = [
@@ -23,10 +28,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="dscvr:canvas:version" content="vNext" />
-        <meta property="og:image" content="https://setita.com/brand/blink_1.png" />
-      </Head>
       {/* <AppWalletProviders> */}
         {/* <WalletModalProvider> */}
           
