@@ -10,7 +10,6 @@ export async function getFundRaisingRecord(donationId: string): Promise<Fundrais
     return docSnap.data() as Fundraising;
 }
 
-
 export async function saveDonationRecordToDB(donation: any) {
     const dnColl = cFirestore.collection(DONATION_COLLECTION);
 
@@ -21,7 +20,6 @@ export async function saveDonationRecordToDB(donation: any) {
     docRef.update({ id: docRef.id });
     return docRef;
 }
-
 
 export async function saveFundraisingToDB(fundraisingObj: Fundraising) {
     const fcColl = cFirestore.collection(FUNDRAISING_COLLECTION);
