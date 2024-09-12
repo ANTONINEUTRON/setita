@@ -7,7 +7,7 @@ import Head from 'next/head';
 
 export const metadata = {
   title: 'setita',
-  description: 'decentralized milestone based crowdfunding platform',
+  description: 'Decentralized milestone based fundraising platform on solana',
   other: {
     viewport: "width=device-width, initial-scale=1",
     "dscvr:canvas:version": "vNext",
