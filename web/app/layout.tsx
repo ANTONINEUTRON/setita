@@ -3,7 +3,12 @@ import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/src/constants';
-import Head from 'next/head';
+import { Poppins } from '@next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
 
 export const metadata = {
   title: 'setita',
@@ -31,7 +36,7 @@ export default function RootLayout({
       {/* <AppWalletProviders> */}
         {/* <WalletModalProvider> */}
           
-      <body className='min-h-screen'>
+      <body className={'min-h-screen '+poppins.className}>
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>

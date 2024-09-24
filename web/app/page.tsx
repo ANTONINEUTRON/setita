@@ -3,6 +3,7 @@ import WaitlistForm from '@/components/landing_page/waitlist_form';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import CustomButton from '@/components/buttons/custom_button';
 
 export default function Page() {
   return (
@@ -25,9 +26,7 @@ export default function Page() {
           </p>
           {/* <Link href="/blink/view/">/ */}
           <Link href="https://dial.to/?action=solana-action%3Ahttps://setita.com/blink/create">
-            <button className="px-6 py-2 bg-gradient-to-tr from-primary to-secondary text-white rounded hover:bg-primary hover:shadow-2xl">
-              Try out our Blink
-            </button>
+            <CustomButton text="Try out our Blink" />
           </Link>
           
         </section>
