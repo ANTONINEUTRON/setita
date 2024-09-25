@@ -5,16 +5,18 @@ interface CustomButtonProps {
     onClick?: () => void;
     icon?: React.ReactNode;
     className?: string;
+    isIconAfterTitle?: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ text, onClick, icon, className }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ text, onClick, icon, className, isIconAfterTitle }) => {
     return (
         <button
-            className={`px-6 py-2 bg-gradient-to-tr from-primary to-secondary hover:opacity-75 text-white rounded hover:bg-primary hover:shadow-2xl ${className}`}
+            className={`flex items-center px-4 py-2 bg-gradient-to-tr from-primary to-secondary hover:opacity-75 text-white rounded hover:bg-primary hover:shadow-2xl ${className}`}
             onClick={onClick}
         >
-            {icon && <span className="m-2 ">{icon}</span>}
+            {icon && !isIconAfterTitle && <span className="mr-2 ">{icon}</span>}
             {text}
+            {isIconAfterTitle && <span className="ml-2 ">{icon}</span>}
         </button>
     );
 };

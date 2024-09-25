@@ -17,15 +17,16 @@ export default function DonationPage() {
                         <div className="p-4">
                             {/* Header */}
                             <div className=" mb-6">
-                                <span className="text-2xl font-bold dark:text-white text-primary">
+                                <span className="text-2xl font-bold dark:text-white text-primary mb-2">
                                     DONATIONS
-                                </span>{/* Items goes here */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container">
-                                <BoxCampaignItem />
-                                <BoxCampaignItem />
-                                <BoxCampaignItem />
-                                <BoxCampaignItem />
-                            </div>
+                                </span>
+                                {/* Items goes here */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container px-4">
+                                    <BoxCampaignItem />
+                                    <BoxCampaignItem />
+                                    <BoxCampaignItem />
+                                    <BoxCampaignItem />
+                                </div>
                             </div>
                             
                         </div>

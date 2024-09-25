@@ -8,7 +8,7 @@ import ExtendedButton from "@/components/buttons/extended_button";
 import CampaignItem from "@/components/campaign_items/campaign_item";
 
 export default function AppPage(){
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
 
     return (
         <section className="p-8 flex items-center justify-center min-h-[70vh]">
@@ -27,12 +27,14 @@ export default function AppPage(){
                                 <CampaignItem />
                             </div>
                             {/* Add Button */}
-                            <div className="fixed bottom-16 right-16 hover:shadow-2xl  border border-secondary bg-primary text-white flex items-center rounded-full">
-                                <span className="m-2 mx-6 ">
-                                    Add
-                                </span>
-                                <MdAdd className="text-4xl bg-purple-300 rounded-full" />
-                            </div>
+                            <Link href={"/app/create"}>
+                                <div className="fixed bottom-16 right-16 hover:shadow-2xl hover:opacity-85 border border-secondary bg-primary text-white flex items-center rounded-full">
+                                    <span className="m-1 mx-6 font-semibold text-xl">
+                                        Add
+                                    </span>
+                                    <MdAdd className="text-4xl bg-purple-400 rounded-full" />
+                                </div>
+                            </Link>
                         </div>
                     ):(
                         <EmptyCampaign/>
