@@ -11,10 +11,40 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { MdAddLink, MdArrowBackIos, MdArrowForwardIos, MdNoteAdd } from "react-icons/md";
 
-const pages = [<BasicInformation />, <FundraisingDetails />, <Media />, <Verify />];
-
 export default function CreatePage(){
     const [indexToShow, setIndexToShow] = useState(0)
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        location: "",
+        dates: [],
+        goal: 0,
+        currencies: [],
+        images: [],
+        video: null,
+        isTermAccepted: false,
+    })
+
+
+    const pages = [
+        <BasicInformation
+            onDescriptionChange={(description) => { }}
+            onLocationChange={(location) => { }}
+            onTitleChange={(title) => { }} />,
+
+        <FundraisingDetails
+            onDurationChange={(dates) => { }}
+            onGoalChange={(goalAmount) => { }}
+            onSupportedCurrencyChange={(currencies) => { }} />,
+
+        <Media
+            onImagesChange={(images) => { }}
+            onVideoChange={(video) => { }} />,
+
+        <Verify
+            onTermsAccepted={(isTermAccepted) => { }} />
+    ];
+
 
     return (
         <div 
