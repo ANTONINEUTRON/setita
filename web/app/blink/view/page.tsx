@@ -1,4 +1,4 @@
-import AppBar from "@/components/app_bar";
+import AppBar from "@/components/navbar/app_bar";
 import UnfurlBlink from "@/components/view_blink";
 
 export default function Page(){

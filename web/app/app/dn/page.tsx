@@ -21,7 +21,7 @@ export default function DonationPage() {
                                     DONATIONS
                                 </span>
                                 {/* Items goes here */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container px-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container px-4 py-4">
                                     <BoxCampaignItem />
                                     <BoxCampaignItem />
                                     <BoxCampaignItem />

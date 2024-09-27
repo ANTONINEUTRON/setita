@@ -1,4 +1,4 @@
-import AppBar from "@/components/app_bar";
+import AppBar from "@/components/navbar/app_bar";
 import React from "react"
 
 export default function Layout({

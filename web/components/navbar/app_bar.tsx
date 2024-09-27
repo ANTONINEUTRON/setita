@@ -2,11 +2,15 @@
 
 import Link from "next/link";
 import Image from 'next/image';
-import WalletButton from "./wallet_button";
+import WalletButton from "../wallet_button";
 
-export default function AppBar(){
+interface AppBarProps{
+    isFullLength?: boolean
+}
+
+export default function AppBar({isFullLength}:AppBarProps){
     return (
-        <div className="navbar bg-primary container mx-auto rounded-md">
+        <div className="navbar bg-primary container mx-auto rounded-md text-white">
             <div className="navbar-start">
                 <Link href={"/"} className="btn btn-ghost text-xl">
                     <Image src="/brand/setita.png" width="400" height="150" alt={'setita_logo'} className="h-7 w-32" /> 
@@ -14,11 +18,11 @@ export default function AppBar(){
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li>
+                    <li className="hover:opacity-60">
                         <Link href={"/app/"}>Campaigns</Link>
                     </li>
                     
-                    <li>
+                    <li className="hover:opacity-60" >
                         <Link href={"/app/dn"}>Donations</Link>
                     </li>
                 </ul>

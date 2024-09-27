@@ -1,4 +1,4 @@
-import AppBar from "@/components/app_bar";
+import AppBar from "@/components/navbar/app_bar";
 
 
 export default function AppLayout({
