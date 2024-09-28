@@ -1,9 +1,9 @@
 import './global.css';
-import { ClusterProvider } from '@/components/cluster/cluster-data-access';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/src/constants';
 import { Poppins } from '@next/font/google';
+import { OktoProvider, BuildType } from 'okto-sdk-react';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -33,25 +33,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <AppWalletProviders> */}
-        {/* <WalletModalProvider> */}
-          
       <body className={'min-h-screen '+poppins.className}>
+
         <ReactQueryProvider>
-          <ClusterProvider>
             <SolanaProvider>
               {children}
             </SolanaProvider>
-          </ClusterProvider>
         </ReactQueryProvider>
+
         <footer className='flex justify-center items-end'>
           <div className="mx-auto mt-3">
             &copy; {new Date().getFullYear()} {"   "+APP_NAME.toLowerCase()}
-            
           </div>
         </footer>
+
       </body>
-      {/* </AppWalletProviders> */}
     </html>
   );
 }

@@ -2,13 +2,22 @@
 
 import Link from "next/link";
 import Image from 'next/image';
-import WalletButton from "../wallet_button";
+import { FaGoogle, FaUserCircle } from "react-icons/fa";
+import { useOkto, type OktoContextType } from 'okto-sdk-react';
+import { useEffect, useState } from "react";
+import WalletButton from "../buttons/wallet_button";
+import ExtendedButton from "../buttons/extended_button";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 
-interface AppBarProps{
-    isFullLength?: boolean
-}
+export default function AppBar(){
+    const [isUserIn, setIsUserIn] = useState(false);
+    const { showWidgetModal } = useOkto() as OktoContextType;
+    const { connected,disconnect } = useWallet(); 
 
-export default function AppBar({isFullLength}:AppBarProps){
+    useEffect(() => {
+        setIsUserIn(connected);  
+    }, [connected]);
+    
     return (
         <div className="navbar bg-primary container mx-auto rounded-md text-white">
             <div className="navbar-start">
@@ -52,43 +61,50 @@ export default function AppBar({isFullLength}:AppBarProps){
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img
+                            {/* <img
                                 alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" /> */}
+                            <FaUserCircle size={35} className="text-secondary" />
                         </div>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content text-white font-bold rounded-box z-[2] mt-3 w-52 p-2  shadow-xl bg-secondary">
-                        <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
-                        </li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
-                    </ul>
+                    {
+                        isUserIn 
+                            ? (
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content text-white font-bold rounded-box z-[2] mt-3 w-52 p-2  shadow-xl bg-secondary">
+                                    <div>
+                                        <li>
+                                            <a className="justify-between">
+                                                Profile
+                                                <span className="badge">New</span>
+                                            </a>
+                                        </li>
+                                        <li><a>Settings</a></li>
+                                        <li onClick={()=>disconnect()}><a>Logout</a></li>
+                                    </div>
+                                </ul>
+                            ):(
+                                <div
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content  text-white font-bold rounded-box z-[2] mt-3 w-52  shadow-xl bg-secondary">
+                                        <span className="text-lg mx-auto mb-4">Sign in with</span>
+                                        <div className="mx-auto">
+                                            <WalletButton />
+                                        </div>
+                                        <span className="mx-auto my-2">OR</span>
+                                        <div className="mx-auto">
+                                            <ExtendedButton 
+                                                text="Google"
+                                                onClick={()=>showWidgetModal()}
+                                                icon={<FaGoogle className="p-2 mx-auto" />}/>
+                                        </div>
+                                </div>
+                            )
+                    }
                 </div>
             </div>
         </div>
-        // <div>
-        //     <header className=" bg-primary sticky">
-        //         <div className="flex justify-between items-center p-4 container m-auto">
-                    
-                    
-
-        //             {/* <Link href="https://dial.to/?action=solana-action:https://setita.com/blink/create">
-        //                 <button className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700">
-        //                     Get Started
-        //                 </button>
-        //             </Link> */}
-        //             {/* <div>
-        //                 <WalletButton />
-        //             </div> */}
-
-        //         </div>
-        //     </header>
-        // </div>
+        
     )
 }

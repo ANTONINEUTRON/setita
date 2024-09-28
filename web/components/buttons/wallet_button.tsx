@@ -8,9 +8,9 @@ export default function WalletButton(){
     // "": "^1.77.3",
     return (
         <div>
-            <div className="border hover:border-slate-900 rounded">
+            {/* <div className="border hover:border-slate-900 rounded"> */}
                 <WalletMultiButton style={{}} />
-            </div>
+            {/* </div> */}
         </div>
     );
 }
