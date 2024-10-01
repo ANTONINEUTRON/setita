@@ -54,17 +54,17 @@ export default function AppPage(){
 function EmptyCampaign() {
     const { connected, select, wallet } = useWallet(); // Get wallet connection info
     const router = useRouter(); // For navigation
-    const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
+    // const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
 
-    const showCreateCampaignForm = async () => {
-        if (!connected) {
-            // Show wallet connection prompt instead of the "Create A Campaign" button
-            setShowPrompt(true);
-        } else {
-            // If the wallet is connected, redirect to /app/create
-            router.push('/app/create/');
-        }
-    };
+    // const showCreateCampaignForm = async () => {
+    //     if (!connected) {
+    //         // Show wallet connection prompt instead of the "Create A Campaign" button
+    //         setShowPrompt(true);
+    //     } else {
+    //         // If the wallet is connected, redirect to /app/create
+    //         router.push('/app/create/');
+    //     }
+    // };
 
     return (
         <div className="flex flex-col items-center w-full">
@@ -80,7 +80,7 @@ function EmptyCampaign() {
                         </div>
                     </div>
 
-                    {showPrompt ? (
+                    {/* {showPrompt ? (
                         <div className="bg-secondary text-white p-6 rounded-lg">
                             <div className="flex justify-between">
                                 <h2 className="text-md font-bold mb-4">
@@ -99,13 +99,15 @@ function EmptyCampaign() {
                                     icon={<FaGoogle className="p-2 mx-auto" />} />
                             </div>
                         </div>
-                    ) : (
+                    ) : ( */}
+                    <Link href="/app/create/">
                         <CustomButton
                             className="mt-7 p-5"
-                            onClick={showCreateCampaignForm}
-                            text="Create A Campaign"
-                        />
-                    )}
+                            // onClick={showCreateCampaignForm}
+                            text="Create A Campaign" />
+                    </Link>
+                        
+                    {/* )} */}
                 </div>
 
                 <div className="flex flex-col items-center text-2xl">

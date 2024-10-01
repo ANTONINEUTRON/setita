@@ -1,4 +1,5 @@
-import { Category, Fundraising } from "@/src/types/fundraising";
+import {  Fundraising } from "@/src/types/fundraising";
+import { Category } from "@/src/types/category";
 import { saveFundraisingToDB } from "@/src/utils/firebase_ops";
 import {
   ActionPostResponse,
@@ -42,20 +43,24 @@ export async function GET(request: NextRequest) {
               "label": "Category",
               "options": [
                 {
-                  "label": "Education", 
+                  "label": Category.education, 
                   "value": Category.education,
                 },
                 {
-                  "label": "Healthcare",
+                  "label": Category.health,
                   "value": Category.health,
                 },
                 {
-                  "label": "Environmental Sustainability",
+                  "label": Category.environmental,
                   "value": Category.environmental,
                 },
                 {
-                  "label": "Community Development",
+                  "label": Category.community,
                   "value": Category.community,
+                },
+                {
+                  "label": Category.others,
+                  "value": Category.others,
                 }
               ],
             },

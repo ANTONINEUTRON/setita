@@ -4,6 +4,7 @@ import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/src/constants';
 import { Poppins } from '@next/font/google';
 import { OktoProvider, BuildType } from 'okto-sdk-react';
+import { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({
 
         <ReactQueryProvider>
             <SolanaProvider>
+              <Toaster />
               {children}
             </SolanaProvider>
         </ReactQueryProvider>

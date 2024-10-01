@@ -1,25 +1,26 @@
+// Fundraising Camapaign
 
-import { Donation } from "./donation";
+import { CampaignGoal } from "./campaign_goal";
+import { SupportCurrency } from "./supported_currencies";
 
-  // }
 export interface Fundraising{
     id: string,
     account: string,
-    data: Details,
+    data: CampaignDetails,
 }
 
-interface Details{
+export interface CampaignDetails{
     category: string,
-    terms: string[],
+    terms?: string[],
     title: string,
     description: string,
-    email: string,
-    domain: string | unknown,
+    email?: string,
+    domain?: string | unknown,
+    location?: string,
+    duration?: any[] | null,
+    goal?: CampaignGoal | null,
+    supportedCurrencies: SupportCurrency[],
+    images: File[],
+    video?: File,
 }
-
-export const Category = { 
-  education: "education", 
-  health: "health", 
-  environmental: "environmental", 
-  community:"community"
-}
+ 

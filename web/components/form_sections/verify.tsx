@@ -1,90 +1,125 @@
+import { CampaignDetails } from "@/src/types/fundraising";
 import { Radio } from "antd";
 
 interface VerifyProps {
-    onTermsAccepted: (accepted: boolean) => void; // Callback for terms acceptance
+    formData: CampaignDetails
 }
 
-export default function Verify({ onTermsAccepted }: VerifyProps) {
-    const handleTermsChange = (e: any) => {
-        onTermsAccepted(e.target.value === "accept"); // Trigger callback with true if accepted, false otherwise
-    };
-
+export default function Verify({ formData }: VerifyProps) {
     return (
         <div className="p-4 my-8">
             <div className="my-2 text-xl font-bold">
                 Verify Your Campaign Details
             </div>
+
             <div className="border rounded-lg p-4">
+                {/* Title */}
                 <div className="my-4">
-                    <div className="text-lg">Title of the campaign</div>
+                    <div className="text-lg font-semibold">Title of the campaign</div>
+                    <div >{formData?.title || "N/A"}</div>
                 </div>
+
+                {/* Description */}
                 <div className="my-4">
-                    <div className="">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, asperiores odio. Similique autem consequatur animi magni, voluptas aperiam perferendis. Dicta excepturi pariatur quo ipsum error deleniti quas explicabo beatae minima?
+                    <div className="text-lg font-semibold">Description</div>
+                    <div >{formData?.description || "N/A"}</div>
+                </div>
+
+                {/* Location */}
+                <div className="my-4">
+                    <div className="text-lg font-semibold">Location</div>
+                    <div >{formData?.location || "N/A"}</div>
+                </div>
+
+                {/* Category */}
+                <div className="my-4">
+                    <div className="text-lg font-semibold">Donation category</div>
+                    <div >{formData?.category || "N/A"}</div>
+                </div>
+
+                {/* Dates */}
+                <div className="my-4">
+                    <div className="text-lg font-semibold">Duration</div>
+                    <div >
+                        {
+                            formData?.duration ? (
+                                <div className="flex justify-between border p-2 m-2 border-dashed rounded-lg">
+                                    <div className="">
+                                        Start: {new Date(formData?.duration[1] as any).toDateString()}
+                                    </div>
+                                    <div>
+                                        End: {new Date(formData?.duration[0] as any).toDateString()}
+                                    </div>
+                                </div>
+                            ):(
+                                <div>
+                                    Date not set
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
+
+
                 <div className="my-4">
-                    <div className="text-lg">Location</div>
+                    <div className="text-lg font-semibold">Target Amount</div>
+                    <div>
+                        {formData?.goal?.amount || "N/A"} {formData?.goal?.currency.name || ""}
+                    </div>
                 </div>
+
+                {/* Supported Tokens */}
                 <div className="my-4">
-                    <div className="text-lg">Date</div>
+                    <div className="text-lg font-semibold">Supported Tokens</div>
+                    <div >
+                        {formData?.supportedCurrencies?.map((currency)=>(
+                            <div>{currency.name}</div>
+                        ))}
+                        
+                    </div>
                 </div>
-                <div className="my-4">
-                    <div className="text-lg">Target Amount SOL</div>
-                </div>
-                <div className="my-4">
-                    <div className="text-lg">Supported Tokens</div>
-                </div>
+
+                {/* Media Section */}
                 <div className="p-4 border border-dashed rounded-lg mt-8">
                     <div className="font-semibold text-md mb-4">MEDIA</div>
-                    <div className="text-lg">Title of the campaign</div>
+
+                    {/* Images */}
+                    <div className="text-lg font-semibold">Images</div>
+                    <div className="flex flex-wrap mt-2">
+                        {formData?.images?.length > 0 ? (
+                            formData?.images.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={URL.createObjectURL(image)}
+                                    alt={`Campaign image ${index + 1}`}
+                                    className="w-32 h-32 object-cover mr-2 mb-2"
+                                />
+                            ))
+                        ) : (
+                            <div>No images uploaded</div>
+                        )}
+                    </div>
+
+                    {/* Video */}
+                    <div className="text-lg font-semibold mt-4">Video</div>
+                    <div className="mt-2">
+                        {formData?.video ? (
+
+                            <video controls className="w-full h-auto mt-2">
+                                <source src={URL.createObjectURL(formData.video)} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        ) : (
+                            <div>No video uploaded</div>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <Radio.Group onChange={handleTermsChange} className="dark:text-white mt-10 flex flex-col">
-                <Radio value="accept" className="dark:text-white">I accept the Terms and Conditions</Radio>
-                <Radio value="decline" className="dark:text-white" checked>I do not accept the Terms and Conditions</Radio>
-            </Radio.Group>
+            {/* Terms and Conditions */}
+            <div className="text-sm text-center mt-8 mx-4 md:mx-16 ">
+                On submitting and creating this fundraising campaign, you agree to the terms and conditions and privacy policy of Setita.
+            </div>
         </div>
     );
 }
-
-// import { Radio } from "antd";
-
-// export default function Verify(){
-//     return (
-//         <div className="p-4 my-8">
-//             <div className="my-2 text-xl font-bold">
-//                 Verify Your Campaign Details
-//             </div>
-//             <div className="border rounded-lg p-4">
-//                 <div className="my-4">
-//                     <div className="text-lg ">Title of the campaign</div>
-//                 </div>
-//                 <div className="my-4">
-//                     <div className="">
-//                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, asperiores odio. Similique autem consequatur animi magni, voluptas aperiam perferendis. Dicta excepturi pariatur quo ipsum error deleniti quas explicabo beatae minima?
-//                     </div>
-//                 </div>
-//                 <div className="my-4">
-//                     <div className="text-lg ">Location</div>
-//                 </div>
-//                 <div className="my-4">
-//                     <div className="text-lg ">Date</div>
-//                 </div>
-//                 <div className="my-4">
-//                     <div className="text-lg ">Target Amount SOL</div>
-//                 </div>
-//                 <div className="my-4">
-//                     <div className="text-lg ">Supported Tokens</div>
-//                 </div>
-//                 <div className="p-4 border border-dashed rounded-lg mt-8">
-//                     <div className="font-semibold text-md mb-4">MEDIA</div>
-//                     <div className="text-lg ">Title of the campaign</div>
-//                 </div>
-//             </div>
-
-//             <Radio className="dark:text-white mt-10">I accept the Terms and Conditions</Radio>
-//         </div>
-//     )
-// }
