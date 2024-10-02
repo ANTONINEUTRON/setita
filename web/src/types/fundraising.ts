@@ -7,6 +7,7 @@ export interface Fundraising{
     id: string,
     account: string,
     data: CampaignDetails,
+    trxHash: string,
 }
 
 export interface CampaignDetails{
@@ -19,8 +20,8 @@ export interface CampaignDetails{
     location?: string,
     duration?: any[] | null,
     goal?: CampaignGoal | null,
-    supportedCurrencies: SupportCurrency[],
-    images: File[],
-    video?: File,
+    supportedCurrencies: string[],
+    images: any[],
+    video?: any,
 }
  

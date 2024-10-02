@@ -5,12 +5,17 @@ import BasicInformation from "@/components/form_sections/basic_information";
 import FundraisingDetails from "@/components/form_sections/fundraising_details";
 import Media from "@/components/form_sections/media";
 import Verify from "@/components/form_sections/verify";
-import { CampaignDetails } from "@/src/types/fundraising";
+import { CampaignDetails, Fundraising } from "@/src/types/fundraising";
 import { supportedCurrencies } from "@/src/types/supported_currencies";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MdAddLink, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Category } from "@/src/types/category";
+    import axios from "axios";
+import {  useWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { HELIUS_ENDPOINT } from "@/src/constants";
+import { useRouter } from "next/navigation";
 
 export default function CreatePage() {
     const [indexToShow, setIndexToShow] = useState(0);
@@ -19,13 +24,24 @@ export default function CreatePage() {
         description: "",
         location: "",
         category: Category.education,
-        goal: { amount: 0, currency: supportedCurrencies[0] },
+        goal: { amount: 0, currency: supportedCurrencies[0].name },
         supportedCurrencies: [],
         images: [],
+        duration: null,
+        video: "",
     });
+    const [images, setImages] = useState<File[]>([]);
+    const [video, setVideo] = useState<File | null>();
+    const { publicKey, sendTransaction } = useWallet();
+    const router = useRouter()
+    const campaignTrxHash = useRef("");
+    const [isProcessing, setIsProcessing] = useState(false);
 
     // Handle form data updates
     const updateFormData = (key: string, value: any) => {
+        console.log(key);
+        console.log(value);
+        
         setFormData((prevData) => ({
             ...prevData,
             [key]: value,
@@ -66,7 +82,7 @@ export default function CreatePage() {
     };
 
     const validateMedia = () => {
-        if (formData.images.length === 0) {
+        if (images.length === 0) {
             toast.error("At least one image is required");
             return false;
         }
@@ -96,11 +112,125 @@ export default function CreatePage() {
         }
     };
 
-    const handleSubmit = () => {
+    const performCreationTransaction = async () => {
+        // Check if wallet is connected
+        if (!publicKey) {
+            toast.error("Please connect your wallet to proceed\n\nHint: Click the profile icon at the top-left");
+            throw new Error("no wallet found");
+        }
+
+        try {
+            const connection = new Connection(HELIUS_ENDPOINT); // Solana mainnet endpoint
+            const recipient = new PublicKey("EpG8VkF9Cv4iGBGYvaxAATVDEgd74VjWmsPdKcF9WGwc");
+            const amountInLamports = 0.007 * 1e9;
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
+
+            // Transaction setup
+            const transaction = new Transaction({
+                feePayer: publicKey,
+                blockhash,
+                lastValidBlockHeight,
+            }).add(
+                SystemProgram.transfer({
+                    fromPubkey: publicKey,
+                    toPubkey: recipient,
+                    lamports: amountInLamports,
+                })
+            );
+
+            // Send transaction
+            const signature = await sendTransaction(transaction, connection);
+            await connection.confirmTransaction({
+                blockhash: blockhash, 
+                lastValidBlockHeight: lastValidBlockHeight, 
+                signature: signature,
+            }, "processed")
+
+            campaignTrxHash.current = signature;
+
+            toast.success("Transaction successful! \nCreating this Campaign");
+
+            router.push("/app/");
+        } catch (error) {
+            console.log("Transaction failed:", error);
+            toast.error("Transaction failed.");
+        }
+    };
+
+
+    const saveMediaFiles = async () => {
+        const formDataToSend = new FormData();
+
+        // Check if there are images to upload
+        if (images && images.length > 0) {
+            images.forEach((image: File) => {
+                formDataToSend.append(`images`, image); // Append each image file
+            });
+        }
+
+        // Check if there's a video to upload
+        if (video) {
+            formDataToSend.append("video", video); // Append video file if it exists
+        }
+
+        formDataToSend.append("trxHash", campaignTrxHash.current);
+
+        try {
+            // Send the FormData object via axios
+            const response = await axios.post("/api/uploadMedia", formDataToSend, {
+                headers: {
+                    "Content-Type": "multipart/form-data", // Required for file uploads
+                },
+            });
+            
+            return response.data;
+            
+        } catch (error) {
+            toast.error("Failed to upload media files");
+            console.error("Error uploading media files:", error);
+            throw new Error("Failed to upload media files.");
+        }
+    };
+
+
+    const handleSubmit = async () => {
         if (validateForm()) {
-            console.log("Final form data:", formData);
-            toast.success("Campaign submitted successfully!");
-            // Proceed with form submission logic (e.g., send data to API)
+            setIsProcessing(true);
+
+            try {
+                // Perform creation transaction
+                await performCreationTransaction();
+
+                // save video and media files
+                const { imageUrls, videoUrl } = await saveMediaFiles();
+                
+
+                // create fundraing object
+                let fundraingObj: Fundraising = {
+                    id: "",
+                    trxHash: campaignTrxHash.current, 
+                    account: publicKey!.toString(),
+                    data: {
+                        ...formData,
+                        images: imageUrls, 
+                        video: videoUrl,
+                    },//set connected wallet here
+                }
+
+                // save object
+                // Send the FormData object via axios
+                const response = await axios.post("/api/saveCampaign", JSON.stringify(fundraingObj), {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });                
+
+                toast.success("Campaign Created Successfully!");
+
+            } catch (error) {
+                // toast.error("An error occured while creating this campaign");
+            }
+            setIsProcessing(false);
         }
     };
 
@@ -124,12 +254,14 @@ export default function CreatePage() {
             onSupportedCurrencyChange={(currencies) => updateFormData("supportedCurrencies", currencies)} />,
 
         <Media
-            images={formData.images}
-            video={formData.video ?? null}
-            onImagesChange={(images) => updateFormData("images", images)}
-            onVideoChange={(video) => updateFormData("video", video)} />,
+            images={images}
+            video={video ?? null}
+            onImagesChange={(images) => setImages(images)}
+            onVideoChange={(video) => setVideo(video)} />,
 
         <Verify
+            images={images}
+            video={video ?? null}
             formData={formData} />,
     ];
 
@@ -138,32 +270,32 @@ export default function CreatePage() {
             <div className="text-center text-3xl">CREATE CAMPAIGN</div>
 
             {/* Hot Toast Notification */}
-            <Toaster />
+            {/* <Toaster /> */}
 
             {/* Form Goes here */}
             <div className="mt-8 min-h-[80vh] flex flex-col justify-between">
                 <div className="flex flex-col justify-center ">
                     <ul className="steps steps-horizontal md:mx-auto mx-1">
                         <li
-                            onClick={() => setIndexToShow(0)}
+                            // onClick={() => setIndexToShow(0)}
                             className={"step " + (indexToShow >= 0 ? "step-primary" : "")}
                         >
                             Basic Information
                         </li>
                         <li
-                            onClick={() => setIndexToShow(1)}
+                            // onClick={() => setIndexToShow(1)}
                             className={"step " + (indexToShow >= 1 ? "step-primary" : "")}
                         >
                             Details
                         </li>
                         <li
-                            onClick={() => setIndexToShow(2)}
+                            // onClick={() => setIndexToShow(2)}
                             className={"step " + (indexToShow >= 2 ? "step-primary" : "")}
                         >
                             Media
                         </li>
                         <li
-                            onClick={() => setIndexToShow(3)}
+                            // onClick={() => setIndexToShow(3)}
                             className={"step " + (indexToShow >= 3 ? "step-primary" : "")}
                         >
                             Verify
@@ -176,8 +308,7 @@ export default function CreatePage() {
                         <CustomButton
                             onClick={() => setIndexToShow(indexToShow - 1)}
                             icon={<MdArrowBackIos />}
-                            text="Go Back"
-                        />
+                            text="Go Back" />
                     ) : (
                         <div></div>
                     )}
@@ -188,14 +319,14 @@ export default function CreatePage() {
                             text="Next"
                             onClick={handleNext}
                             isIconAfterTitle={true}
-                        />
+                            isProcessing={isProcessing} />
                     ) : (
                         <CustomButton
                             icon={<MdAddLink size={24} />}
                             text="SUBMIT"
                             onClick={handleSubmit}
                             isIconAfterTitle={true}
-                        />
+                            isProcessing={isProcessing} />
                     )}
                 </div>
             </div>

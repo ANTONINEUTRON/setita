@@ -2,10 +2,12 @@ import { CampaignDetails } from "@/src/types/fundraising";
 import { Radio } from "antd";
 
 interface VerifyProps {
-    formData: CampaignDetails
+    formData: CampaignDetails,
+    images: File[],
+    video: File | null,
 }
 
-export default function Verify({ formData }: VerifyProps) {
+export default function Verify({ formData, images, video }: VerifyProps) {
     return (
         <div className="p-4 my-8">
             <div className="my-2 text-xl font-bold">
@@ -86,8 +88,8 @@ export default function Verify({ formData }: VerifyProps) {
                     {/* Images */}
                     <div className="text-lg font-semibold">Images</div>
                     <div className="flex flex-wrap mt-2">
-                        {formData?.images?.length > 0 ? (
-                            formData?.images.map((image, index) => (
+                        {images?.length > 0 ? (
+                            images.map((image, index) => (
                                 <img
                                     key={index}
                                     src={URL.createObjectURL(image)}
@@ -103,10 +105,10 @@ export default function Verify({ formData }: VerifyProps) {
                     {/* Video */}
                     <div className="text-lg font-semibold mt-4">Video</div>
                     <div className="mt-2">
-                        {formData?.video ? (
+                        {video ? (
 
                             <video controls className="w-full h-auto mt-2">
-                                <source src={URL.createObjectURL(formData.video)} type="video/mp4" />
+                                <source src={URL.createObjectURL(video)} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         ) : (

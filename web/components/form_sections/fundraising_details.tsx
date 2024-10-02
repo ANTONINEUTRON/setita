@@ -12,8 +12,8 @@ interface FundraisingDetailsProps {
     category: string;
     duration: string[] | null;
     goal: CampaignGoal;
-    supportedCurrencies: SupportCurrency[];
-    onSupportedCurrencyChange: (currencies: SupportCurrency[]) => void;
+    supportedCurrencies: string[];
+    onSupportedCurrencyChange: (currencies: string[]) => void;
     onGoalChange: (goal: CampaignGoal) => void;
     onDurationChange: (dates: [string, string]) => void;
     onCategoryChange: (category: string) => void;
@@ -29,7 +29,7 @@ export default function FundraisingDetails({
     onDurationChange,
     onCategoryChange,
 }: FundraisingDetailsProps) {
-    const [localSupportedCurrencies, setLocalSupportedCurrencies] = useState<SupportCurrency[]>(supportedCurrencies);
+    const [localSupportedCurrencies, setLocalSupportedCurrencies] = useState<string[]>(supportedCurrencies);
     const [localGoal, setLocalGoal] = useState<CampaignGoal>(goal);
     const [localDuration, setLocalDuration] = useState<[any, any] | null>(duration ? [dayjs(duration[0]),dayjs(duration[1])] : null);
     const [localCategory, setLocalCategory] = useState<string>(category);
@@ -42,28 +42,28 @@ export default function FundraisingDetails({
         setLocalCategory(category);
     }, [supportedCurrencies, goal, duration, category]);
 
-    const handleCurrencyChange = (currency: SupportCurrency | "All") => {
+    const handleCurrencyChange = (currency: string | "All") => {
         let newCurrencies = [...localSupportedCurrencies];
 
         if (currency === "All") {
             if (newCurrencies.length === availableCurrencies.length) {
-                newCurrencies = [availableCurrencies.find((curr) => curr.name === "USDC")!]; // Ensure USDC is always selected
+                newCurrencies = [availableCurrencies.find((curr) => curr.name === "USDC")!.name]; // Ensure USDC is always selected
             } else {
-                newCurrencies = [...availableCurrencies]; // Select all
+                newCurrencies = [...(availableCurrencies.map((sCur)=>sCur.name))]; // Select all
             }
         } else {
-            if (newCurrencies.find((curr) => curr.name === currency.name)) {
-                newCurrencies = newCurrencies.filter((curr) => curr.name !== currency.name);
+            if (newCurrencies.find((curr) => curr === currency)) {
+                newCurrencies = newCurrencies.filter((curr) => curr !== currency);
             } else {
                 newCurrencies.push(currency);
             }
 
             if (newCurrencies.length === 0) {
-                newCurrencies = [availableCurrencies.find((curr) => curr.name === "USDC")!];
+                newCurrencies = [availableCurrencies.find((curr) => curr.name === "USDC")!.name];
             }
 
             if (newCurrencies.length === availableCurrencies.length) {
-                newCurrencies = [...availableCurrencies]; // Select all
+                newCurrencies = [...(availableCurrencies.map((sCur)=>sCur.name))]; // Select all
             }
         }
 
@@ -78,7 +78,7 @@ export default function FundraisingDetails({
     };
 
     const handleGoalChangeCurrency = (currency: SupportCurrency) => {
-        const newGoal = { ...localGoal, currency };
+        const newGoal: CampaignGoal = { ...localGoal, currency: currency.name };
         setLocalGoal(newGoal);
         onGoalChange(newGoal);
     };
@@ -129,8 +129,8 @@ export default function FundraisingDetails({
                     <Checkbox
                         key={currency.address}
                         className="text-white"
-                        checked={localSupportedCurrencies.some((curr) => curr.name === currency.name)}
-                        onChange={() => handleCurrencyChange(currency)}>
+                        checked={localSupportedCurrencies.some((curr) => curr === currency.name)}
+                        onChange={() => handleCurrencyChange(currency.name)}>
                         {currency.name}
                     </Checkbox>
                 ))}
@@ -147,9 +147,9 @@ export default function FundraisingDetails({
 
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn">
-                        {localGoal.currency.name ? (
+                        {localGoal.currency ? (
                             <div>
-                                {localGoal.currency.name}
+                                {localGoal.currency}
                             </div>
                         ) : (
                             <div>
@@ -177,7 +177,7 @@ export default function FundraisingDetails({
             >
                 <RangePicker
                     style={{ background: "beige", width: '100%' }}
-                    value={null}
+                    value={localDuration}
                     onChange={handleDurationChange}
                 />
             </FormItem>
