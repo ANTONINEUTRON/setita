@@ -2,7 +2,8 @@
 
 import CampaignDashboard from "@/components/campaign_dashboard"
 import CampaignOwnerDashboard from "@/components/campaign_owner_dashboard"
-import { useState } from "react"
+import { useWallet } from "@solana/wallet-adapter-react"
+import { useEffect, useState } from "react"
 
 
 interface ViewDonationPageProps{
@@ -11,8 +12,14 @@ interface ViewDonationPageProps{
 
 export default function ViewDonationPage({params}: ViewDonationPageProps){
     const [isTheOwner, setIsTheOwner] = useState(false)
+    const {connected} = useWallet();
 
-    return isTheOwner
+    useEffect(()=>{
+        // Load campaign details
+        // display appropriete campaign
+    },[])
+
+    return !isTheOwner
         ?(
             <div>
                 <CampaignOwnerDashboard />

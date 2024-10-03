@@ -21,12 +21,23 @@ export async function saveDonationRecordToDB(donation: any) {
     return docRef;
 }
 
-
 export async function getFundraisingByAddress(account: string): Promise<Fundraising[]> {
     const fcColl = cFirestore.collection(FUNDRAISING_COLLECTION);
 
     // Query the collection where the account field matches the given address
     const querySnapshot = await fcColl.where("account", "==", account).get();
+
+    // Map over the results to return an array of Fundraising objects
+    const fundraisingRecords = querySnapshot.docs.map(doc => doc.data() as Fundraising);
+
+    return fundraisingRecords;
+}
+
+export async function fetchCampaigns(): Promise<Fundraising[]> {
+    const fcColl = cFirestore.collection(FUNDRAISING_COLLECTION);
+
+    // Query the collection where the account field matches the given address
+    const querySnapshot = await fcColl.get();
 
     // Map over the results to return an array of Fundraising objects
     const fundraisingRecords = querySnapshot.docs.map(doc => doc.data() as Fundraising);

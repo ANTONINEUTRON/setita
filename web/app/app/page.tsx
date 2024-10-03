@@ -25,12 +25,9 @@ export default function AppPage(){
 
 
     async function init() {
-        console.log(connected);
-        
         try {
             if (connected) {
                 let json = { address: publicKey?.toString() }
-                console.log(json);
                 
                 // fetch user records
                 let response = await axios.post("/api/fetchCampaigns", json, {
