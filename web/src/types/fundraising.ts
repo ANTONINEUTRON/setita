@@ -1,7 +1,6 @@
 // Fundraising Camapaign
 
 import { CampaignGoal } from "./campaign_goal";
-import { SupportCurrency } from "./supported_currencies";
 
 export interface Fundraising{
     id: string,

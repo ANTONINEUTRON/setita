@@ -1,8 +1,18 @@
+import { Fundraising } from "@/src/types/fundraising";
 import { IconCopy } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 import { MdCopyAll, MdShare } from "react-icons/md";
 import ExtendedButton from "./extended_button";
 
-export default function ShareButton() {
+export default function ShareButton({campaign}: {campaign: Fundraising}) {
+
+    const copy = (text: string)=>{
+        navigator.clipboard.writeText(text);
+
+        // Alert the copied text
+        toast.success("Copied!");
+    }
+
     return (
         <div>
             <ExtendedButton
@@ -17,25 +27,27 @@ export default function ShareButton() {
                     <div className="text-lg font-semibold">Donation Link</div>
                     <span>Your donors can access tools for accessibility</span>
                     <div className="flex justify-between items-center border rounded-lg">
-                        <div className="pl-4">https://srv1509-files.hstgr.io/5</div>
-                        <div className="flex border p-1 rounded-lg bg-slate-700 hover:bg-primary shadow-2xl ">
+                        <div className="pl-1 md:pl-4 line-clamp-1">{("setita.com/dn/" + campaign.id)}</div>
+                        <div onClick={() => copy("https://setita.com/dn/"+campaign.id)} className="flex btn border p-1 rounded-lg bg-slate-700 hover:bg-primary shadow-2xl ">
                             <IconCopy />
                             Copy
                         </div>
                     </div>
+                    
                     <div className="font-bold flex justify-center my-4">OR</div>
+
                     <div className="text-lg font-semibold">Blinks</div>
                     <span>Your donors can donate via social media</span>
                     <div className="flex justify-between items-center border rounded-lg">
-                        <div className="pl-4">https://srv1509-files.hstgr.io/5</div>
-                        <div className="flex border p-1 rounded-lg hover:bg-primary shadow-2xl ">
+                        <div className="pl-1 md:pl-4 line-clamp-1">{"setita.com/blink/give/"+campaign.id}</div>
+                        <div onClick={() => copy("https://dial.to/?action=https://setita.com/blink/give/" + campaign.id)} className="flex btn border p-1 rounded-lg  bg-slate-700 hover:bg-primary shadow-2xl ">
                             <IconCopy />
                             Copy
                         </div>
                     </div>
+
                     <div className="modal-action">
                         <form method="dialog">
-
                             {/* if there is a button in form, it will close the modal */}
                             <button className="btn">Close</button>
                         </form>

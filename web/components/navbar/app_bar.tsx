@@ -8,11 +8,12 @@ import { useEffect, useState } from "react";
 import WalletButton from "../buttons/wallet_button";
 import ExtendedButton from "../buttons/extended_button";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function AppBar(){
     const [isUserIn, setIsUserIn] = useState(false);
     const { showWidgetModal } = useOkto() as OktoContextType;
-    const { connected,disconnect } = useWallet(); 
+    const { connected,connecting, disconnect } = useWallet(); 
 
     useEffect(() => {
         setIsUserIn(connected);  
@@ -64,7 +65,11 @@ export default function AppBar(){
                             {/* <img
                                 alt="Tailwind CSS Navbar component"
                                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" /> */}
-                            <FaUserCircle size={35} className="text-secondary" />
+                            {
+                                connecting
+                                    ? (<AiOutlineLoading3Quarters className="animate-spin bg-white" />)
+                                    : (<FaUserCircle size={35} className="text-secondary" />)
+                            }
                         </div>
                     </div>
                     {

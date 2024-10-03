@@ -26,7 +26,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
             disabled={isProcessing} // Disable button when processing
         >
             {isProcessing ? (
-                <AiOutlineLoading3Quarters className="animate-spin mr-2" /> // Loading spinner
+                <AiOutlineLoading3Quarters className="animate-spin" /> // Loading spinner
             ) : (
                 icon && !isIconAfterTitle && <span className="mr-2 ">{icon}</span>
             )}

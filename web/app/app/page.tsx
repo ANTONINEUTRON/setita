@@ -1,7 +1,7 @@
 "use client"
 import { Md2kPlus, MdAdd, MdArrowForward, MdClose, MdIosShare, MdKeyboardDoubleArrowDown, MdShare } from "react-icons/md";
 import CustomButton from "@/components/buttons/custom_button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
 import CampaignItem from "@/components/campaign_items/campaign_item";
@@ -10,27 +10,73 @@ import WalletButton from "@/components/buttons/wallet_button";
 import ExtendedButton from "@/components/buttons/extended_button";
 import { FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { Fundraising } from "@/src/types/fundraising";
+import axios from "axios";
 
 export default function AppPage(){
-    const [isUserHaveCampaign, setIsUserHaveCampaign] = useState(true);
-    const {connected} = useWallet();
+    const [isUserHaveCampaign, setIsUserHaveCampaign] = useState(false);
+    const {connected, publicKey} = useWallet();
+    const [campaigns, setCampaigns] = useState<Fundraising[]>([]);
 
+    useEffect(()=>{
+        init();
+    },[connected,])
+
+
+    async function init() {
+        console.log(connected);
+        
+        try {
+            if (connected) {
+                let json = { address: publicKey?.toString() }
+                console.log(json);
+                
+                // fetch user records
+                let response = await axios.post("/api/fetchCampaigns", json, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });    
+                
+                let fCampaigns = response.data;
+
+                if(fCampaigns.length > 0){
+                    setCampaigns(fCampaigns);
+                    setIsUserHaveCampaign(true);
+                }
+            } else {
+                setIsUserHaveCampaign(false);
+            }
+        } catch (error) {
+            toast.error((error as any).toString());
+
+            console.log(error);
+            
+        }
+    }
 
     return (
         <section className="p-8 flex items-center justify-center min-h-[70vh]">
                 {
-                    !isUserHaveCampaign ? (
+                    isUserHaveCampaign ? (
                         <div className="min-h-screen container mx-auto">
                             {/* List of campigns */}
                             <div className="p-4">
                                 {/* Header */}
                                 <div className=" mb-6">
                                     <span className="text-2xl font-bold dark:text-white text-primary">
-                                        CAMPAIGNS
+                                        YOUR CAMPAIGNS
                                     </span>
                                 </div>
                                 {/* Items goes here */}
-                                <CampaignItem />
+                                {
+                                    campaigns.map((campaign)=>(
+                                        <CampaignItem 
+                                            key={campaign.id}
+                                            campaign={campaign} />
+                                    ))
+                                }
                             </div>
                             {/* Add Button */}
                             <Link href={"/app/create"}>
@@ -52,7 +98,7 @@ export default function AppPage(){
 
 
 function EmptyCampaign() {
-    const { connected, select, wallet } = useWallet(); // Get wallet connection info
+    const { connected, } = useWallet(); // Get wallet connection info
     const router = useRouter(); // For navigation
     const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
 

@@ -5,14 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     const formData =  await req.json();
     try { 
-        console.log("ENTER SERVER");
-        
-        console.log(formData);
-        
         const fundRaisingobj: Fundraising = formData as any as Fundraising;
-
-        console.log("ABOUT TO SERVER");
-        console.log(fundRaisingobj);
         
         saveFundraisingToDB(fundRaisingobj);
 
