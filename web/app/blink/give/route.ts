@@ -1,4 +1,4 @@
-import { Donation, DonationDetails, DonationType } from "@/src/types/donation";
+import { Donation, DonationDetails, } from "@/src/types/donation";
 import { Fundraising } from "@/src/types/fundraising";
 import {
     ActionPostResponse,
@@ -13,6 +13,7 @@ import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from
 import { NextRequest, NextResponse } from 'next/server'
 import * as splToken from '@solana/spl-token';
 import { getFundRaisingRecord, saveDonationRecordToDB } from "@/src/utils/firebase_ops";
+import { supportedCurrencies } from "@/src/types/supported_currencies";
 
 const headers = createActionHeaders();
 
@@ -24,9 +25,9 @@ export async function GET(request: NextRequest) {
         const fundRaisingData: Fundraising = await getFundRaisingRecord(donationId);
         
         const responseBody: ActionGetResponse = {
-            icon: "https://setita.com/brand/blink_2.png",
+            icon: fundRaisingData.data.images ? fundRaisingData.data.images[0] : "https://setita.com/brand/blink_2.png",
             description: fundRaisingData.data.description,
-            title: "Donate to "+fundRaisingData.data.title+" by "+fundRaisingData.data.email,
+            title: "Donate to "+fundRaisingData.data.title,
             label: "Label",
             error: {
                 message: ""
@@ -47,20 +48,7 @@ export async function GET(request: NextRequest) {
                                 "type": "radio",
                                 "name": "currency",
                                 "label": "Currency",
-                                "options": [
-                                    {
-                                        "label": "SOL",
-                                        "value": DonationType.SOL,
-                                    },
-                                    {
-                                        "label": "SEND",
-                                        "value": DonationType.SEND,
-                                    },
-                                    {
-                                        "label": "USDC",
-                                        "value": DonationType.USDC,
-                                    },
-                                ],
+                                "options": getSupportedCurrencies(fundRaisingData),
                                 "required": true,
                             },
                         ]
@@ -86,6 +74,23 @@ export async function GET(request: NextRequest) {
 }
 
 export const OPTIONS = GET;
+
+// Determine Amount Based on selected currency multiplier
+    // Determine Amount Based on selected currency multiplier
+function getSupportedCurrencies(fundraising: Fundraising): {
+    label: string; 
+    value: string; 
+}[] {
+    return fundraising.data.supportedCurrencies ?
+        fundraising.data.supportedCurrencies.map((currency)=>({
+            label: currency,
+            value: currency,
+        })) 
+        : supportedCurrencies.map((currency) => ({
+        label: currency.name,
+        value: currency.name,
+    }));
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -114,12 +119,8 @@ export async function POST(request: NextRequest) {
         const fundRasingRecord: Fundraising = await getFundRaisingRecord(donationId);
         const recipientPublicKey = new PublicKey(fundRasingRecord.account); //get from store
 
-        const SOLANA_MAINNET_USDC_PUBKEY =
-            new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
-        const SOLANA_MAINNET_SEND_PUBKEY = new PublicKey('SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa');
-
         // Determine Amount Based on selected currency multiplier
-        const amount = DonationType.SOL ? donationData.amount * 1e9 : donationData.amount * 1e6;
+        const amount = donationData.donationType == supportedCurrencies[0].name ? donationData.amount * 1e9 : donationData.amount * 1e6;
 
         // Connection to the Solana cluster
         const connection = new Connection(clusterApiUrl('mainnet-beta'));
@@ -132,21 +133,30 @@ export async function POST(request: NextRequest) {
 
         // Filter and create appropriete transaction
         switch (donationData.donationType) {
-            case DonationType.SEND.toString():
+            case supportedCurrencies[3].name: //SEND TOKEN
                 transaction = await createSPLTokenTransferTransaction(
                     connection,
                     payerPubKey,
                     recipientPublicKey,
-                    SOLANA_MAINNET_SEND_PUBKEY,
+                    new PublicKey(supportedCurrencies[3].address),
                     amount,
                 );
                 break;
-            case DonationType.USDC.toString():
+            case supportedCurrencies[2].name: //USDT
                 transaction = await createSPLTokenTransferTransaction(
                     connection,
                     payerPubKey,
                     recipientPublicKey,
-                    SOLANA_MAINNET_USDC_PUBKEY,
+                    new PublicKey(supportedCurrencies[2].address),
+                    amount,
+                );
+                break;
+            case supportedCurrencies[1].name: //USDC
+                transaction = await createSPLTokenTransferTransaction(
+                    connection,
+                    payerPubKey,
+                    recipientPublicKey,
+                    new PublicKey(supportedCurrencies[1].address),
                     amount,
                 );
                 break;

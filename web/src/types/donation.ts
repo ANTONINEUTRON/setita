@@ -14,6 +14,7 @@ export interface DonationDetails{
 //     USDC, SOL, SEND,
 // }
 
-export const DonationType = { USDC : "USDC",
-SOL : "SOL",
-SEND :"SEND"};
+// export const DonationType = { USDC : "USDC",
+// SOL : "SOL",
+// SEND :"SEND",
+// };
