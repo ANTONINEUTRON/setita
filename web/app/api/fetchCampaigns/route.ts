@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json(campaigns);
     } catch (error) {
-        console.error("Error uploading media:", error);
+        console.error("Error fetching all campaigns", error);
         return NextResponse.error();
     }
 }
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json(campaigns);
     } catch (error) {
-        console.error("Error uploading media:", error);
+        console.error("Error getting  campaign by address", error);
         return NextResponse.error();
     }
 }

@@ -1,6 +1,5 @@
-import { FaDonate, FaEdit, FaFileAlt, FaFlagCheckered } from 'react-icons/fa';
+import { FaDonate, FaEdit, FaFileAlt, FaFlagCheckered, FaInfo, FaInfoCircle } from 'react-icons/fa';
 import { MdAdd, MdAddCircle } from 'react-icons/md';
-import CustomButton from '../buttons/custom_button';
 import ExtendedButton from '../buttons/extended_button';
 
 interface SidebarProps{
@@ -19,30 +18,38 @@ export default function Sidebar({onNavSelect, indexToShow, showSidebar, isPublic
             <div className="flex-grow w-60 ">
                 <ul className="pt-4">
                     {
-                        isPublicView && (
-                            <ExtendedButton 
-                                icon={<MdAdd/>}
-                                text="Donate"
-                                className='fixed bottom-10 right-11 md:hidden'/>
+                        isPublicView == true ? (
+                            <div>
+                            <li 
+                                onClick={() => (document.getElementById('donate_modal') as any).showModal()}
+                                className={"md:p-4 hover:opacity-70 hover:bg-purple cursor-pointer flex text-lg justify-between border my-10 md:mx-4  bg-secondary rounded-3xl"}>
+                                <div>DONATE</div>
+                                <MdAddCircle className='text-2xl' />
+                            </li>
+                            </div>
+                            
+                        ):(
+                            <div className='mb-10'></div>
                         )
                     }
-                    <li onClick={() => { }} className={"md:p-4 hover:opacity-70 hover:bg-purple cursor-pointer flex text-lg justify-between border my-10 md:mx-4  bg-secondary rounded-3xl"}>
-                        <div>ADD DONATION</div>
-                        <MdAddCircle className='text-2xl' />
-                    </li>
+
                     <li onClick={() => onNavSelect(0)} className={sideBarItemStyle + (indexToShow == 0 && " bg-purple-800")}>
+                        <div>Details</div>
+                        <FaInfoCircle />
+                    </li>
+                    <li onClick={() => onNavSelect(1)} className={sideBarItemStyle + (indexToShow == 1 && " bg-purple-800")}>
                         <div>Contributions</div>
                         <FaDonate />
                     </li>
-                    <li onClick={() => onNavSelect(1)} className={sideBarItemStyle + (indexToShow == 1 && " bg-purple-800")}>
+                    <li onClick={() => onNavSelect(2)} className={sideBarItemStyle + (indexToShow == 2 && " bg-purple-800")}>
                         <span>Milestones</span>
                         <FaFlagCheckered />
                     </li>
-                    <li onClick={() => onNavSelect(2)} className={sideBarItemStyle + (indexToShow == 2 && " bg-purple-800")}>
+                    <li onClick={() => onNavSelect(3)} className={sideBarItemStyle + (indexToShow == 3 && " bg-purple-800")}>
                         <span>Proposals</span>
                         <FaFileAlt />
                     </li>
-                    <li onClick={() => onNavSelect(3)} className={sideBarItemStyle + (indexToShow == 3 && " bg-purple-800")}>
+                    <li onClick={() => onNavSelect(4)} className={sideBarItemStyle + (indexToShow == 4 && " bg-purple-800")}>
                         <span>Updates</span>
                         <FaEdit />
                     </li>

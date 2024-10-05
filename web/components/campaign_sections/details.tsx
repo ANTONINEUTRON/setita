@@ -1,42 +1,45 @@
-import { CampaignDetails } from "@/src/types/fundraising";
-import { Radio } from "antd";
+import { Fundraising } from "@/src/types/fundraising";
+import ShareButton from "../buttons/share_button";
 
-interface VerifyProps {
-    formData: CampaignDetails,
-    images: File[],
-    video: File | null,
-}
-
-export default function Verify({ formData, images, video }: VerifyProps) {
+export default function CampaignDetails({ campaign }: { campaign: Fundraising }){
     return (
-        <div className="p-4 my-8">
-            <div className="my-2 text-xl font-bold">
-                Verify Your Campaign Details
+        <div className="mt-8 p-4">
+            <div className=" flex justify-between">
+                <div className="indicator">
+                    <h1 className="text-3xl font-bold mb-4">Campaign Details</h1>
+                    {
+                        !campaign.trxHash && (
+                            <span className="badge badge-sm indicator-item  p-2 bg-primary">Created with Blinks</span>
+                        )
+                    }
+                </div>
+                <ShareButton
+                    campaign={campaign} />
             </div>
+            
 
             <div className="border rounded-lg p-4">
                 {/* Title */}
                 <div className="my-4">
-                    <div className="text-lg font-semibold">Title of the campaign</div>
-                    <div >{formData?.title || "N/A"}</div>
+                    <div className="text-lg font-semibold">{campaign.data.title || "N/A"}</div>
+                    
                 </div>
 
                 {/* Description */}
-                <div className="my-4">
-                    <div className="text-lg font-semibold">Description</div>
-                    <div >{formData?.description || "N/A"}</div>
+                <div className="my-10">
+                    <div >{campaign.data.description || "N/A"}</div>
                 </div>
 
                 {/* Location */}
                 <div className="my-4">
                     <div className="text-lg font-semibold">Location</div>
-                    <div >{formData?.location || "N/A"}</div>
+                    <div >{campaign.data.location || "N/A"}</div>
                 </div>
 
                 {/* Category */}
                 <div className="my-4">
                     <div className="text-lg font-semibold">Donation category</div>
-                    <div >{formData?.category || "N/A"}</div>
+                    <div >{campaign.data.category || "N/A"}</div>
                 </div>
 
                 {/* Dates */}
@@ -44,16 +47,16 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                     <div className="text-lg font-semibold">Duration</div>
                     <div >
                         {
-                            formData?.duration ? (
+                            campaign.data.duration ? (
                                 <div className="flex justify-between border p-2 m-2 border-dashed rounded-lg">
                                     <div className="">
-                                        Start: {new Date(formData?.duration[1] as any).toDateString()}
+                                        Start: {new Date(campaign.data.duration[1] as any).toDateString()}
                                     </div>
                                     <div>
-                                        End: {new Date(formData?.duration[0] as any).toDateString()}
+                                        End: {new Date(campaign.data.duration[0] as any).toDateString()}
                                     </div>
                                 </div>
-                            ):(
+                            ) : (
                                 <div>
                                     Date not set
                                 </div>
@@ -66,7 +69,7 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                 <div className="my-4">
                     <div className="text-lg font-semibold">Target Amount</div>
                     <div>
-                        {formData?.goal?.amount || "N/A"} {formData?.goal?.currency || ""}
+                        {campaign.data.goal?.amount || "N/A"} {campaign.data.goal?.currency || ""}
                     </div>
                 </div>
 
@@ -74,10 +77,10 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                 <div className="my-4">
                     <div className="text-lg font-semibold">Supported Tokens</div>
                     <div >
-                        {formData?.supportedCurrencies?.map((currency)=>(
+                        {campaign.data.supportedCurrencies?.map((currency) => (
                             <div>{currency}</div>
                         ))}
-                        
+
                     </div>
                 </div>
 
@@ -88,11 +91,11 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                     {/* Images */}
                     <div className="text-lg font-semibold">Images</div>
                     <div className="flex flex-wrap mt-2">
-                        {images?.length > 0 ? (
-                            images.map((image, index) => (
+                        {campaign.data.images ? (
+                            campaign.data.images.map((image, index) => (
                                 <img
                                     key={index}
-                                    src={URL.createObjectURL(image)}
+                                    src={image}
                                     alt={`Campaign image ${index + 1}`}
                                     className="w-32 h-32 object-cover mr-2 mb-2"
                                 />
@@ -105,10 +108,10 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                     {/* Video */}
                     <div className="text-lg font-semibold mt-4">Video</div>
                     <div className="mt-2">
-                        {video ? (
+                        {campaign.data.video ? (
 
                             <video controls className="w-full h-auto mt-2">
-                                <source src={URL.createObjectURL(video)} type="video/mp4" />
+                                <source src={campaign.data.video} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         ) : (
@@ -117,11 +120,6 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                     </div>
                 </div>
             </div>
-
-            {/* Terms and Conditions */}
-            <div className="text-sm text-center mt-8 mx-4 md:mx-16 ">
-                On submitting and creating this fundraising campaign, you agree to the terms and conditions and privacy policy of Setita.
-            </div>
         </div>
-    );
+    )
 }

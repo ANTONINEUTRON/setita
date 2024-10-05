@@ -1,18 +1,22 @@
 "use client"
 
+import { Fundraising } from '@/src/types/fundraising';
 import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
-import Contributions from './campaign_owner_sections/contributions';
-import Milestones from './campaign_owner_sections/milestones';
-import Proposals from './campaign_owner_sections/proposals';
-import Updates from './campaign_owner_sections/updates';
+import Contributions from './campaign_sections/contributions';
+import CampaignDetails from './campaign_sections/details';
+import Milestones from './campaign_sections/milestones';
+import Proposals from './campaign_sections/proposals';
+import Updates from './campaign_sections/updates';
 import AppBar from './navbar/app_bar';
 import Sidebar from './navbar/side_bar';
 
-const CampaignOwnerDashboard: React.FC = () => {
+export default function CampaignOwnerDashboard({campaign}:{campaign: Fundraising}) {
     const [indexToShow, setIndexToShow] = useState(0)
     
     const pages = [
+        <CampaignDetails
+            campaign={campaign} />,
         <Contributions />,
         <Milestones />,
         <Proposals />,
@@ -33,7 +37,6 @@ const CampaignOwnerDashboard: React.FC = () => {
                     <div className="drawer-side ">
                         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                         <ul className="menu text-base-content min-h-full bg-primary p-4">
-                            {/* Sidebar content here */}
                             <Sidebar
                                 onNavSelect={(index) => setIndexToShow(index)}
                                 indexToShow={indexToShow} 
@@ -61,5 +64,3 @@ const CampaignOwnerDashboard: React.FC = () => {
         </div>
     );
 };
-
-export default CampaignOwnerDashboard;

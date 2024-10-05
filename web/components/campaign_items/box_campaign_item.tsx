@@ -1,15 +1,22 @@
 import { Fundraising } from "@/src/types/fundraising";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function BoxCampaignItem ({campaign}:{campaign: Fundraising}){
+    const [campaignBg, setCampaignBg] = useState({
+        backgroundImage: "url('/images/donation.jpg')",
+    });
 
     useEffect(()=>{
-        console.log(campaign);
-        
-    });
+        if(campaign.data.images){
+            setCampaignBg({
+                backgroundImage: "url('" + campaign.data.images[0] + "')",
+            });
+        }
+    },[]);
+
 
     return (
         <Link href={"../dn/"+campaign.id}>
@@ -18,9 +25,7 @@ export default function BoxCampaignItem ({campaign}:{campaign: Fundraising}){
                     {/* Background image */}
                     <div
                         className="inset-0 bg-cover bg-center h-72 rounded-lg"
-                        style={{
-                            backgroundImage: "url('/images/donation.jpg')",
-                        }}>
+                        style={campaignBg}>
                         {/* Gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-gray-900 opacity-70"></div>
                         {/* Text content */}

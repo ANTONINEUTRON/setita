@@ -1,22 +1,27 @@
 "use client"
 
+import { Fundraising } from "@/src/types/fundraising";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
-import PContributions from "./campaign_sections/p_contributions";
-import PMilestones from "./campaign_sections/p_milestones";
-import PProposals from "./campaign_sections/p_proposals";
-import PUpdates from "./campaign_sections/p_updates";
+import Contributions from "./campaign_sections/contributions";
+import CampaignDetails from "./campaign_sections/details";
+import Milestones from "./campaign_sections/milestones";
+import Proposals from "./campaign_sections/proposals";
+import Updates from "./campaign_sections/updates";
 import AppBar from "./navbar/app_bar";
 import Sidebar from "./navbar/side_bar";
 
-export default function CampaignDashboard(){
+
+export default function CampaignDashboard({ campaign }: { campaign: Fundraising }) {
     const [indexToShow, setIndexToShow] = useState(0)
 
     const pages = [
-        <PContributions />,
-        <PMilestones />,
-        <PProposals />,
-        <PUpdates />
+        <CampaignDetails 
+            campaign={campaign}/>,
+        <Contributions />,
+        <Milestones />,
+        <Proposals />,
+        <Updates />
     ]
 
     return (
@@ -38,7 +43,7 @@ export default function CampaignDashboard(){
                                 onNavSelect={(index) => setIndexToShow(index)}
                                 indexToShow={indexToShow}
                                 showSidebar={true} 
-                                isPublicView={true}/>
+                                isPublicView={true} />
 
                         </ul>
                     </div>

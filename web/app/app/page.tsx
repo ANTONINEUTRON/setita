@@ -1,9 +1,8 @@
 "use client"
-import { Md2kPlus, MdAdd, MdArrowForward, MdClose, MdIosShare, MdKeyboardDoubleArrowDown, MdShare } from "react-icons/md";
+import { MdAdd, MdClose, MdKeyboardDoubleArrowDown } from "react-icons/md";
 import CustomButton from "@/components/buttons/custom_button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
 import CampaignItem from "@/components/campaign_items/campaign_item";
 import { useWallet } from "@solana/wallet-adapter-react";
 import WalletButton from "@/components/buttons/wallet_button";
@@ -13,6 +12,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Fundraising } from "@/src/types/fundraising";
 import axios from "axios";
+import { OktoContextType, useOkto } from "okto-sdk-react";
+import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
 
 export default function AppPage(){
     const [isUserHaveCampaign, setIsUserHaveCampaign] = useState(false);
@@ -98,6 +99,7 @@ function EmptyCampaign() {
     const { connected, } = useWallet(); // Get wallet connection info
     const router = useRouter(); // For navigation
     const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
+    const { showWidgetModal } = useOkto() as OktoContextType;
 
     const showCreateCampaignForm = async () => {
         if (!connected) {
@@ -161,30 +163,61 @@ function EmptyCampaign() {
                 </div>
             </div>
 
-            <div className="border rounded-lg w-full p-4 mx-16">
-                <div className="flex justify-between items-end container mx-auto px-5 mb-4">
-                    <span className="font-bold text-2xl text-secondary">
-                        Featured Campaigns
-                    </span>
-                    <div>
-                        <Link href={""}>
-                            <span className="hover:text-blue-600 text-primary dark:text-tertiary">
-                                see more
-                            </span>
-                        </Link>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container p-4">
-                    <BoxCampaignItem />
-                    <BoxCampaignItem />
-                    <BoxCampaignItem />
-                </div>
-            </div>
+            <FeaturedCampaigns />
         </div>
     );
 }
 
-function showWidgetModal(): void {
-    throw new Error("Function not implemented.");
+
+function FeaturedCampaigns(){
+    const [campaigns, setCampaigns] = useState<Fundraising[]>([]);
+
+    useEffect(()=>{
+        fetchCampaigns
+    },[]);
+
+    const fetchCampaigns = async ()=>{
+        // fetch user records
+        let response = await axios.get("/api/fetchCampaigns",  {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        let fCampaigns = response.data;
+
+        if (fCampaigns) {
+            if(fCampaigns.length > 6){
+                setCampaigns(fCampaigns.slice(0,7));
+            }else{
+                setCampaigns(fCampaigns);
+            }
+        }
+    }
+
+    return campaigns && (
+        <div className="border rounded-lg w-full p-4 mx-16">
+            <div className="flex justify-between items-end container mx-auto px-5 mb-4">
+                <span className="font-bold text-2xl text-secondary">
+                    Featured Campaigns
+                </span>
+                <div>
+                    <Link href={"/app/dn"}>
+                        <span className="hover:text-blue-600 text-primary dark:text-tertiary">
+                            see more
+                        </span>
+                    </Link>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container p-4">
+                {
+                    campaigns.map((campaign)=>(
+                        <BoxCampaignItem 
+                            campaign={campaign} />
+                    ))
+                }
+            </div>
+        </div>
+    )
 }

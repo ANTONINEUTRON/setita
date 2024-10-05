@@ -32,11 +32,9 @@ export default function DonationPage() {
             });
 
             let fCampaigns = response.data;
-console.log("campaing");
-console.log(fCampaigns);
-
 
             if (fCampaigns.length > 0) {
+
                 setCampaigns(fCampaigns);
             }else{
                 setCampaigns([]);
