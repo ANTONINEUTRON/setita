@@ -9,7 +9,7 @@ export default function CampaignDetails({ campaign }: { campaign: Fundraising })
                     <h1 className="text-3xl font-bold mb-4">Campaign Details</h1>
                     {
                         !campaign.trxHash && (
-                            <span className="badge badge-sm indicator-item  p-2 bg-primary">Created with Blinks</span>
+                            <span className="badge badge-sm indicator-item text-white p-2 bg-primary">Created with Blinks</span>
                         )
                     }
                 </div>

@@ -16,7 +16,7 @@ export default function FormItem({children, className, title, subLabel}:FormItem
             <div className="text-sm">
                 {subLabel}
             </div>
-            <div className={"rounded-md bg-slate-800 text-lg border p-2 flex items-center gap-2 m-2 " + className}>
+            <div className={"rounded-md bg-inherit text-lg border p-1 flex items-center gap-2 m-2 " + className}>
                 {children}
             </div>
         </div>

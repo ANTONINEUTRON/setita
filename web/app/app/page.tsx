@@ -173,7 +173,7 @@ function FeaturedCampaigns(){
     const [campaigns, setCampaigns] = useState<Fundraising[]>([]);
 
     useEffect(()=>{
-        fetchCampaigns
+        fetchCampaigns()
     },[]);
 
     const fetchCampaigns = async ()=>{

@@ -6,21 +6,19 @@ import { MdArrowDropDown, MdAdd } from "react-icons/md";
 import CustomButton from "./buttons/custom_button";
 import FormItem from "./form_item";
 import MilestoneItem from "./milestone_item";
-import {StreamflowSolana,} from "@streamflow/stream";
-import { HELIUS_ENDPOINT } from "@/src/constants";
+import { StreamflowSolana, } from "@streamflow/stream";
 
-// const streamFlowClient = new StreamflowSolana.SolanaStreamClient(
-//     HELIUS_ENDPOINT
-// );
+// StreamflowSolana.
+const solanaClient = new StreamflowSolana.SolanaStreamClient(
+    "https://api.mainnet-beta.solana.com",
+);
 
 export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
     const [amount, setAmount] = useState(0); // Total donation amount
     const [currency, setCurrency] = useState<string>();
     const [milestones, setMilestones] = useState<Milestone[]>([]); // Track milestones
     const [error, setError] = useState<string | null>(null); // Track error message
-    // const solanaClient = new StreamflowSolana.SolanaStreamClient(
-    //     "https://api.mainnet-beta.solana.com"
-    // );
+    
     // Calculate the total amount of all milestones
     const totalMilestoneAmount = milestones.reduce((acc, milestone) => acc + milestone.amount, 0);
 

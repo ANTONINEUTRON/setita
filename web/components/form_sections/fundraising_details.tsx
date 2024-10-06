@@ -117,9 +117,8 @@ export default function FundraisingDetails({
             <FormItem
                 title={"Supported Currency"}
                 subLabel={"Select which tokens you will accept for donations"}
-                className="text-white">
+                className="dark:text-white">
                 <Checkbox
-                    className="text-white"
                     checked={localSupportedCurrencies.length === availableCurrencies.length}
                     onChange={() => handleCurrencyChange("All")}>
                     All
@@ -128,7 +127,6 @@ export default function FundraisingDetails({
                 {availableCurrencies.map((currency) => (
                     <Checkbox
                         key={currency.address}
-                        className="text-white"
                         checked={localSupportedCurrencies.some((curr) => curr === currency.name)}
                         onChange={() => handleCurrencyChange(currency.name)}>
                         {currency.name}
