@@ -21,8 +21,9 @@ export default function CampaignDetails({ campaign }: { campaign: Fundraising })
             <div className="border rounded-lg p-4">
                 {/* Title */}
                 <div className="my-4">
-                    <div className="text-lg font-semibold">{campaign.data.title || "N/A"}</div>
-                    
+                    <div className="text-lg font-semibold">
+                        {campaign.data.title || "N/A"}
+                    </div>
                 </div>
 
                 {/* Description */}

@@ -1,5 +1,5 @@
 import UnfurlBlink from '@/components/view_blink';
-import WaitlistForm from '@/components/landing_page/waitlist_form';
+import WaitlistForm from '@/components/waitlist_form';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';

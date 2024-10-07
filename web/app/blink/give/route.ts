@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
                 message: ""
             },
             "links": {
-                "actions": [
+                "actions": <any>[
                     {
                         "label": "Donate ", // button text
                         "href": "/blink/give?did=" + donationId+"&amount=",
@@ -179,7 +179,7 @@ export async function POST(request: NextRequest) {
         saveDonationRecordToDB(donation);
 
         const payload: ActionPostResponse = await createPostResponse({
-            fields: {
+            fields: <any>{
                 transaction,
                 message: "CONGRATS! You have donated "+donation.details.amount+" "+donation.details.donationType+" to this Campaign. You are a Hero in GOLDEN CAPE",
             },

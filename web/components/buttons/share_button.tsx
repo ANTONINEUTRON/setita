@@ -37,7 +37,7 @@ export default function ShareButton({campaign}: {campaign: Fundraising}) {
                     <div className="font-bold flex justify-center my-4">OR</div>
 
                     <div className="text-lg font-semibold">Blinks</div>
-                    <span>Your donors can donate via social media</span>
+                    <span>Enable your donors to donate via social media</span>
                     <div className="flex justify-between items-center border rounded-lg">
                         <div className="pl-1 md:pl-4 line-clamp-1">{"setita.com/blink/give?did="+campaign.id}</div>
                         <div onClick={() => copy("https://dial.to/?action=https://setita.com/blink/give?did=" + campaign.id)} className="flex btn border p-1 rounded-lg  bg-slate-700 hover:bg-primary shadow-2xl ">

@@ -1,3 +1,4 @@
+import { Milestone } from "./milestone";
 
 export interface Donation{
     address: string,
@@ -7,7 +8,9 @@ export interface Donation{
 
 export interface DonationDetails{
     donationType: string,
-    amount: number,    
+    amount: number,
+    initialAmount?: number,
+    milestones?: Milestone[],
 }
 
 // export enum DonationType{

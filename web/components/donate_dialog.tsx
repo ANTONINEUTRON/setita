@@ -1,63 +1,52 @@
 "use client"
 import { Fundraising } from "@/src/types/fundraising";
 import { Milestone } from "@/src/types/milestone";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdArrowDropDown, MdAdd } from "react-icons/md";
 import CustomButton from "./buttons/custom_button";
 import FormItem from "./form_item";
 import MilestoneItem from "./milestone_item";
-import { StreamflowSolana, } from "@streamflow/stream";
-
-// StreamflowSolana.
-const solanaClient = new StreamflowSolana.SolanaStreamClient(
-    "https://api.mainnet-beta.solana.com",
-);
 
 export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
     const [amount, setAmount] = useState(0); // Total donation amount
     const [currency, setCurrency] = useState<string>();
     const [milestones, setMilestones] = useState<Milestone[]>([]); // Track milestones
     const [error, setError] = useState<string | null>(null); // Track error message
-    
+
     // Calculate the total amount of all milestones
     const totalMilestoneAmount = milestones.reduce((acc, milestone) => acc + milestone.amount, 0);
 
-    //reset state
+    // Reset state
     const resetState = () => {
         setAmount(0);
         setCurrency("");
         setMilestones([]);
         setError(null);
-    }
-    
-    useEffect(()=>{
-        console.log("Amount is");
+    };
 
-        console.log(amount);
-        console.log(currency);
-        console.log(milestones);
-
-        console.log(error);
-    },[milestones, amount, currency])
     // Handle adding a new milestone
     const handleAddMilestone = () => {
         setMilestones([...milestones, { index: milestones.length, description: "", date: "", amount: 0 }]);
     };
 
+    const handleRemoveMilestone = (index: number) => {
+        const newMilestones = milestones.filter((milestone, i) => milestone.index !== index); // Remove milestone by index
+        setMilestones([...newMilestones]);
+    };
+
     // Update milestone on change
     const handleMilestoneChange = (index: number, updatedMilestone: Milestone) => {
-        const newMilestones = [...milestones];
-        newMilestones[index] = updatedMilestone; // Update specific milestone by index
+        const newMilestones = [...milestones,updatedMilestone];
 
-        const newTotalMilestoneAmount = newMilestones.reduce((acc, milestone) => acc + milestone.amount, 0);
+        // const newTotalMilestoneAmount = newMilestones.reduce((acc, milestone) => acc + milestone.amount, 0);
 
-        // Check if new total exceeds the total donation amount
-        if (newTotalMilestoneAmount > amount) {
-            setError("The total milestone amount cannot exceed the donation amount.");
-        } else {
-            setError(null);
-            setMilestones(newMilestones);
-        }
+        // // Check if new total exceeds the total donation amount
+        // if (newTotalMilestoneAmount > amount) {
+        //     setError("The total milestone amount cannot exceed the donation amount.");
+        // } else {
+        //     setError(null);
+        //     setMilestones(newMilestones);
+        // }
     };
 
     return (
@@ -87,7 +76,7 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="dropdown-content menu bg-base-100 w-32 rounded-box z-[1] w-30 p-2 shadow">
+                            className="dropdown-content menu bg-base-100 w-32 rounded-box z-[1] p-2 shadow">
                             {(campaign.data?.supportedCurrencies ?? []).map((currency) => (
                                 <li
                                     key={currency}
@@ -106,6 +95,8 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
                         <MilestoneItem
                             key={index}
                             index={index}
+                            milestone={milestone}
+                            onRemove={() => handleRemoveMilestone(index)}
                             onChange={(updatedMilestone) => handleMilestoneChange(index, updatedMilestone)}
                         />
                     ))}

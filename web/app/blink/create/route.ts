@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     title: "Do you have a fundraising goal targetted at social good?",
     label: "Label",
     "links": {
-      "actions": [
+      "actions": <any>[
         {
           "label": "Create Campaign (0.007 SOL)", // button text
           "href": "/blink/create",
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
   const docRef = await saveFundraisingToDB(fundraisingObj);
 
   const payload: ActionPostResponse = await createPostResponse({
-    fields: {
+    fields: <any>{
       transaction,
       message: "Campaign Created successfully. Your campaign Blink is  https://dial.to/?action=solana-action:https://setita.com/blink/give?did="+docRef.id+"  Copy and share with Donors",
     },
