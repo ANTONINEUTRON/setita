@@ -111,6 +111,13 @@ function EmptyCampaign() {
         }
     };
 
+    useEffect(()=>{
+        if(showPrompt && connected){
+            // If the wallet is connected, redirect to /app/create
+            router.push('/app/create/');
+        }
+    },[connected])
+
     return (
         <div className="flex flex-col items-center w-full">
             <div className="flex flex-col justify-between h-[85vh] items-center bg-fixed w-3/6 mb-4">
