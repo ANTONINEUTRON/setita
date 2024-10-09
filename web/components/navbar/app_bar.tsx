@@ -100,7 +100,7 @@ export default function AppBar(){
                                         <span className="mx-auto my-2">OR</span>
                                         <div className="mx-auto">
                                             <ExtendedButton 
-                                                text="Google"
+                                                text="Google Using Okto"
                                                 onClick={()=>showWidgetModal()}
                                                 icon={<FaGoogle className="p-2 mx-auto" />}/>
                                         </div>

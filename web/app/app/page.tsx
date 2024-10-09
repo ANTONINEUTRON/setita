@@ -139,18 +139,18 @@ function EmptyCampaign() {
                                 <WalletButton />
                                 <div className="m-5">OR</div>
                                 <ExtendedButton
-                                    text="Google"
+                                    text="Sign in With Google"
                                     onClick={() => showWidgetModal()}
                                     icon={<FaGoogle className="p-2 mx-auto" />} />
                             </div>
                         </div>
                     ) : (
-                        <Link href="/app/create/">
+                        // <Link href="/app/create/">
                             <CustomButton
                                 className="mt-7 p-5"
                                 onClick={showCreateCampaignForm}
                                 text="Create A Campaign" />
-                        </Link>
+                        // </Link>
                         
                     )}
                 </div>
