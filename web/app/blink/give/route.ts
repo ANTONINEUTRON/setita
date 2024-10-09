@@ -11,9 +11,9 @@ import {
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { NextRequest, NextResponse } from 'next/server'
-import * as splToken from '@solana/spl-token';
 import { getFundRaisingRecord, saveDonationRecordToDB } from "@/src/utils/firebase_ops";
 import { supportedCurrencies } from "@/src/types/supported_currencies";
+import { createSPLTokenTransferTransaction } from "@/src/utils/donation_ops";
 
 const headers = createActionHeaders();
 
@@ -193,74 +193,5 @@ export async function POST(request: NextRequest) {
             status: 400,
             headers,
         });
-    }
-}
-
-
-/**
- * Creates a transaction for transferring SPL tokens.
- * 
- */
-async function createSPLTokenTransferTransaction(
-    connection: Connection,
-    sender: PublicKey,
-    recipient: PublicKey,
-    mintAddress: PublicKey,
-    amount: number
-): Promise<Transaction> {
-    try {
-        // Get the associated token account of the sender
-        const senderTokenAccount = await splToken.getAssociatedTokenAddress(
-            mintAddress,
-            sender,
-            false,
-            splToken.TOKEN_PROGRAM_ID,
-            splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-        );
-
-        // Get the associated token account of the recipient
-        const recipientTokenAccount = await getAssociatedTokenAddress(
-            mintAddress,
-            recipient,
-            true,
-            splToken.TOKEN_PROGRAM_ID,
-            splToken.ASSOCIATED_TOKEN_PROGRAM_ID
-        );
-
-        const ifexists = await connection.getAccountInfo(senderTokenAccount);
-
-        let instructions = [];
-
-        if (!ifexists || !ifexists.data) {
-            let createATAiX = splToken.createAssociatedTokenAccountInstruction(
-                sender,
-                recipientTokenAccount,
-                recipient,
-                mintAddress,
-                splToken.TOKEN_PROGRAM_ID,
-                splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-            );
-            instructions.push(createATAiX);
-        }
-
-        let transferInstruction = splToken.createTransferInstruction(
-            senderTokenAccount,
-            recipientTokenAccount,
-            sender,
-            amount,
-        );
-        instructions.push(transferInstruction);
-
-
-        const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
-
-        return new Transaction({
-            feePayer: sender,
-            blockhash,
-            lastValidBlockHeight,
-        }).add(...instructions);
-    } catch (error) {
-        console.error("Error creating SPL token transfer transaction:", error);
-        throw error; // Re-throw the error for further handling if needed
     }
 }

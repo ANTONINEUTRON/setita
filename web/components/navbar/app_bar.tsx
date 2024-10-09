@@ -39,7 +39,7 @@ export default function AppBar(){
             </div>
             <div className="navbar-end">
                 <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                    {/* <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.35-4.35" />
@@ -57,7 +57,7 @@ export default function AppBar(){
                                 <button className="btn btn-primary btn-block">View cart</button>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">

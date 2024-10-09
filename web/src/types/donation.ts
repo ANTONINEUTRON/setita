@@ -1,23 +1,13 @@
 import { Milestone } from "./milestone";
 
 export interface Donation{
-    address: string,
+    address: string,//donor address
     details: DonationDetails,
     donationId: string | null | unknown,
 }
 
 export interface DonationDetails{
     donationType: string,
-    amount: number,
-    initialAmount?: number,
+    amount: number,//initial commitment
     milestones?: Milestone[],
 }
-
-// export enum DonationType{
-//     USDC, SOL, SEND,
-// }
-
-// export const DonationType = { USDC : "USDC",
-// SOL : "SOL",
-// SEND :"SEND",
-// };

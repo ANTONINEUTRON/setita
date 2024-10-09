@@ -4,5 +4,5 @@ export interface Milestone{
     description: string,
     date: string,
     amount: number,
-    
+    txHash?: string,
 }

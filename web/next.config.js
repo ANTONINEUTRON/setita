@@ -12,6 +12,8 @@ const nextConfig = {
       ...(config.externals || []),
       'bigint',
       'node-gyp-build',
+      'pino-pretty', 
+      'encoding',
     ];
     return config;
   },

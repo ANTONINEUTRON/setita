@@ -210,7 +210,7 @@ function FeaturedCampaigns(){
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 container p-4">
                 {
                     campaigns.map((campaign)=>(
                         <BoxCampaignItem 

@@ -13,6 +13,10 @@ import {
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { ReactNode, useCallback, useMemo } from 'react';
 import { clusterApiUrl } from '@solana/web3.js';
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 import { HELIUS_ENDPOINT } from '@/src/constants';
 // import { useCluster } from '../cluster/cluster-data-access';
 
@@ -38,7 +42,9 @@ export function SolanaProvider({ children }: { children: ReactNode }) {
       // getPhantomWallet(),
       // getSolflareWallet(),
       // getSolletWallet({ network }),
-      // getSolletExtensionWallet({ network }),
+      // // getSolletExtensionWallet({ network }),
+      // new PhantomWalletAdapter(), 
+      // new SolflareWalletAdapter()
     ],
     [endpoint],
   );

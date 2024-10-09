@@ -98,8 +98,7 @@ export default function CampaignDetails({ campaign }: { campaign: Fundraising })
                                     key={index}
                                     src={image}
                                     alt={`Campaign image ${index + 1}`}
-                                    className="w-32 h-32 object-cover mr-2 mb-2"
-                                />
+                                    className="w-32 h-32 object-cover mr-2 mb-2"/>
                             ))
                         ) : (
                             <div>No images uploaded</div>

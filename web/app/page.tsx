@@ -43,7 +43,7 @@ export default function Page() {
             details='Create Campaign' />
           <HowItWorksItem
             titleNum='3'
-            details='Share the blinks with your donor' />
+            details='Share with your donors' />
         </div>
       </section>
       {/* About us */}
@@ -63,7 +63,7 @@ export default function Page() {
 function GetStartedButton() {
   return (
     <div>
-      <Link href="https://dial.to/?action=solana-action:https://setita.com/blink/create">
+      <Link href="/app">
         <button className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700">
           Get Started
         </button>

@@ -148,12 +148,13 @@ export default function CreatePage() {
 
             campaignTrxHash.current = signature;
 
-            toast.success("Transaction successful! \nCreating this Campaign");
+            toast.success("Transaction successful! \nCreating the Campaign....");
 
             router.push("/app/");
         } catch (error) {
             console.log("Transaction failed:", error);
             toast.error("Transaction failed.");
+            throw "Transaction failed";
         }
     };
 
