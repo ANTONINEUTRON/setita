@@ -135,10 +135,11 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
                     let donationToSave = {
                         
                     }
+
+                    toast.success("Donation successful and Milestones have been created onchain");
                 }catch(error){
                     toast.error("An unexpected error occured!")
                     console.log(error);
-                    
                 }
             }
         }

@@ -1,5 +1,4 @@
 export default function Proposals() {
-    // Sample proposal data
     const proposals = [
         {
             id: 1,
@@ -31,8 +30,8 @@ export default function Proposals() {
 
             {/* Tabs for Ongoing and Concluded Proposals */}
             <div role="tablist" className="tabs tabs-boxed my-8">
-                <a role="tab" className="tab tab-active text-lg">Ongoing Proposals</a>
-                <a role="tab" className="tab  text-lg">Concluded</a>
+                <button role="tab" className="tab tab-active text-lg">Ongoing Proposals</button>
+                <button role="tab" className="tab  text-lg">Concluded</button>
             </div>
 
             {/* List of Proposal Items */}

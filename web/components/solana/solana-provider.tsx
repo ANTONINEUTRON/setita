@@ -43,8 +43,8 @@ export function SolanaProvider({ children }: { children: ReactNode }) {
       // getSolflareWallet(),
       // getSolletWallet({ network }),
       // // getSolletExtensionWallet({ network }),
-      // new PhantomWalletAdapter(), 
-      // new SolflareWalletAdapter()
+      new PhantomWalletAdapter(), 
+      new SolflareWalletAdapter()
     ],
     [endpoint],
   );

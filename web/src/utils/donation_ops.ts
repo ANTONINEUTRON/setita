@@ -1,5 +1,5 @@
 
-import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { getBN, StreamflowSolana, Types } from "@streamflow/stream";
 import { HELIUS_ENDPOINT } from "../constants";
 import { Milestone } from "../types/milestone";
@@ -16,7 +16,7 @@ const solanaClient = new StreamflowSolana.SolanaStreamClient(
     HELIUS_ENDPOINT
 );
 // Connection to Solana
-const connection = new Connection(HELIUS_ENDPOINT);
+const connection = new Connection(HELIUS_ENDPOINT, "confirmed");
 
 export async function fetchUserBalance(currency: string, publicKey: PublicKey): Promise<number> {
     // Find the supported currency
@@ -200,11 +200,6 @@ export async function saveMilestones(
             let milestone = milestones[i];
 
             let date = new Date(milestone.date);
-            console.log("Date is " + date.getTime());
-            console.log(milestone.amount);
-            console.log(currency.decimals);
-            
-            console.log("the getbn is " + getBN(milestone.amount, currency.decimals));
             const totalPeriods = Math.max(1, (date.getTime() - Date.now()) / 1000);
             const amountPerPeriod = getBN(milestone.amount / totalPeriods, currency.decimals);
 
@@ -226,7 +221,7 @@ export async function saveMilestones(
                 automaticWithdrawal: true, // Whether or not a 3rd party (e.g. cron job, "cranker") can initiate a token withdraw/transfer.
                 withdrawalFrequency: 2, // Relevant when automatic withdrawal is enabled. If greater than 0 our withdrawor will take care of withdrawals. If equal to 0 our withdrawor will skip, but everyone else can initiate withdrawals.
             };
-
+            
             const solanaParams = {
                 sender: wallet.adapter, // SignerWalletAdapter or Keypair of Sender account
                 isNative: false,// [optional] [WILL CREATE A wSOL STREAM] Wether Stream or Vesting should be paid with Solana native token or not
@@ -234,16 +229,72 @@ export async function saveMilestones(
 
             try {
                 const { ixs, tx, metadata } = await solanaClient.create(createStreamParams, solanaParams);
-                console.log(ixs);
-                console.log(tx);
-                console.log(metadata);
-                // toast.success("Your donatio")
             } catch (error) {
-                // handle exception
-                // toast.error(exception as any)
                 console.log(error);
 
             }
         }
         
 }
+
+
+// export async function saveMilestones(
+//     milestones: Milestone[],
+//     recipient: string,
+//     currency: SupportCurrency,
+//     wallet: any
+// ) {
+//     console.log("hellooo got into milestone");
+//     for (let i = 0; i < milestones.length; i++) {
+//         let milestone = milestones[i];
+
+//         let date = new Date(milestone.date);
+//         const totalPeriods = Math.max(1, (date.getTime() - Date.now()) / 1000);
+//         const amountPerPeriod = getBN(milestone.amount / totalPeriods, currency.decimals);
+
+//         const createStreamParams: Types.ICreateStreamData = {
+//             recipient: recipient, // Recipient address.
+//             tokenId: currency.address, // Token mint address.
+//             start: Math.floor(Date.now() / 1000), // Timestamp (in seconds) when the stream/token vesting starts.
+//             amount: getBN(milestone.amount, currency.decimals), // depositing 100 tokens with 9 decimals mint.
+//             period: totalPeriods, // Time step (period) in seconds per which the unlocking occurs.
+//             cliff: Math.floor(date.getTime() / 1000), // Vesting contract "cliff" timestamp in seconds.
+//             cliffAmount: getBN(0, currency.decimals), // Amount unlocked at the "cliff" timestamp.
+//             amountPerPeriod: amountPerPeriod, // Release rate: how many tokens are unlocked per each period.
+//             name: milestone.description, // The stream name or subject.
+//             canTopup: false, // setting to FALSE will effectively create a vesting contract.
+//             cancelableBySender: true, // Whether or not sender can cancel the stream.
+//             cancelableByRecipient: false, // Whether or not recipient can cancel the stream.
+//             transferableBySender: true, // Whether or not sender can transfer the stream.
+//             transferableByRecipient: false, // Whether or not recipient can transfer the stream.
+//             automaticWithdrawal: true, // Whether or not a 3rd party (e.g. cron job, "cranker") can initiate a token withdraw/transfer.
+//             withdrawalFrequency: 2, // Relevant when automatic withdrawal is enabled. If greater than 0 our withdrawor will take care of withdrawals. If equal to 0 our withdrawor will skip, but everyone else can initiate withdrawals.
+//         };
+//         const keypair = Keypair.generate();
+//         console.log("created account " + keypair.publicKey.toString());
+
+//         const airdropSignature = await connection.requestAirdrop(
+//             keypair.publicKey,
+//             2 * 1000000000 // Airdrop 2 SOL
+//         );
+//         console.log(airdropSignature);
+//         // Confirm the airdrop transaction
+//         await connection.confirmTransaction(airdropSignature);
+//         console.log(keypair.secretKey);
+
+
+//         const solanaParams = {
+//             sender: keypair, // SignerWalletAdapter or Keypair of Sender account
+//             isNative: false,// [optional] [WILL CREATE A wSOL STREAM] Wether Stream or Vesting should be paid with Solana native token or not
+//         };
+//         console.log(keypair.secretKey);
+
+
+//         try {
+//             const { ixs, tx, metadata } = await solanaClient.create(createStreamParams, solanaParams);
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+
+// }
