@@ -1,96 +1,72 @@
-# setita
+# Setita: Decentralized Crowdfunding Platform
 
-This project is generated with the [create-solana-dapp](https://github.com/solana-developers/create-solana-dapp) generator.
+![Setita Logo](/web/public/logo.png)
 
-## Getting Started
+### About Setita
 
-### Prerequisites
+Setita is a decentralized, milestone-based crowdfunding platform that provides a seamless, secure, and transparent experience for fundraisers. The platform utilizes the power of blockchain to enable fast, trustless donations without fees. Fundraisers can raise funds while providing accountability and transparency to their donors through a milestone-driven structure, empowering social impact on a global scale.
 
-- Node v18.18.0 or higher
+### Features
 
-- Rust v1.77.2 or higher
-- Anchor CLI 0.30.0 or higher
-- Solana CLI 1.18.9 or higher
+- **Milestone-Based Crowdfunding:** Fundraisers are structured around milestones, ensuring transparency and accountability.
+- **DAO-Driven Voting:** Donors can vote on milestone approvals and how funds are spent.
+- **Zero Fees:** No platform fees are charged; all donations go directly to the project.
+- **Blockchain Integration:** Built on the Solana blockchain, supporting SOL, USDC, and other cryptocurrencies.
+- **Cross-Border Donations:** Seamlessly accept donations globally.
+  
+### Getting Started
 
-### Installation
+To run the project locally, follow these steps:
 
-#### Clone the repo
+#### Prerequisites
 
-```shell
-git clone <repo-url>
-cd <repo-name>
-```
+- Node.js (v18 or later)
+- Yarn or npm (depending on your preference)
 
-#### Install Dependencies
+#### Installation
 
-```shell
-npm install
-```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/setita.git
+   cd setita
+   ```
 
-#### Start the web app
+2. **Install Dependencies:**
+   Using Yarn:
+   ```bash
+   yarn install
+   ```
+   Or with npm:
+   ```bash
+   npm install
+   ```
 
-```
-npm run dev
-```
+3. **Environment Variables:**
+   Copy the `.env.local` file in the root directory and fill the variables there:
+   
 
-## Apps
+4. **Run the Development Server:**
+   Using Yarn:
+   ```bash
+   yarn dev
+   ```
+   Or with npm:
+   ```bash
+   npm run dev
+   ```
 
-### anchor
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the project.
 
-This is a Solana program written in Rust using the Anchor framework.
+### Folder Structure
+This project uses a standard create-solana-dapp repository
 
-#### Commands
+### Key Functionalities
 
-You can use any normal anchor commands. Either move to the `anchor` directory and run the `anchor` command or prefix the command with `npm run`, eg: `npm run anchor`.
+1. **Fundraiser Creation:** Start new fundraising campaigns with milestones.
+2. **Donations:** Donate in SOL, USDC, and SEND, with milestone tracking.
+3. **Milestone Management:** Fundraisers and donors can manage and approve milestones using DAO-style voting.
+4. **Accountability:** Fundraisers are held accountable to donors by transparent tracking of donations and milestones.
 
-#### Sync the program id:
+### License
 
-Running this command will create a new keypair in the `anchor/target/deploy` directory and save the address to the Anchor config file and update the `declare_id!` macro in the `./src/lib.rs` file of the program.
-
-You will manually need to update the constant in `anchor/lib/counter-exports.ts` to match the new program id.
-
-```shell
-npm run anchor keys sync
-```
-
-#### Build the program:
-
-```shell
-npm run anchor-build
-```
-
-#### Start the test validator with the program deployed:
-
-```shell
-npm run anchor-localnet
-```
-
-#### Run the tests
-
-```shell
-npm run anchor-test
-```
-
-#### Deploy to Devnet
-
-```shell
-npm run anchor deploy --provider.cluster devnet
-```
-
-### web
-
-This is a React app that uses the Anchor generated client to interact with the Solana program.
-
-#### Commands
-
-Start the web app
-
-```shell
-npm run dev
-```
-
-Build the web app
-
-```shell
-npm run build
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
