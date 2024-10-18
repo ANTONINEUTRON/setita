@@ -153,7 +153,6 @@ function EmptyCampaign() {
                                 <div className="m-5">OR</div>
                                 <ExtendedButton
                                     text="Sign in With Google"
-                                    onClick={() => showWidgetModal()}
                                     icon={<FaGoogle className="p-2 mx-auto" />} />
                             </div>
                         </div>
