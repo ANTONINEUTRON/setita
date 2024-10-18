@@ -41,10 +41,10 @@ export default function Sidebar({onNavSelect, indexToShow, showSidebar, isPublic
                         <div>Contributions</div>
                         <FaDonate />
                     </li>
-                    <li onClick={() => onNavSelect(2)} className={sideBarItemStyle + (indexToShow == 2 && " bg-purple-800")}>
+                    {/* <li onClick={() => onNavSelect(2)} className={sideBarItemStyle + (indexToShow == 2 && " bg-purple-800")}>
                         <span>Milestones</span>
                         <FaFlagCheckered />
-                    </li>
+                    </li> */}
                     <li onClick={() => onNavSelect(3)} className={sideBarItemStyle + (indexToShow == 3 && " bg-purple-800")}>
                         <span>Proposals</span>
                         <FaFileAlt />

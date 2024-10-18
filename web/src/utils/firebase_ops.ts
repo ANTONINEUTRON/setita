@@ -17,7 +17,7 @@ export async function saveDonationRecordToDB(donation: any) {
     const docRef = await dnColl.add(donation);
 
     // update
-    docRef.update({ id: docRef.id });
+    docRef.update({id: docRef.id});
     return docRef;
 }
 

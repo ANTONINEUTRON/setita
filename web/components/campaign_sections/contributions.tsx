@@ -11,6 +11,7 @@ import {
     Legend,
     ChartData,
 } from 'chart.js';
+import { FaFlagCheckered } from 'react-icons/fa';
 
 ChartJS.register(
     CategoryScale,
@@ -91,12 +92,11 @@ export default function Contributions() {
         },
     };
 
-    // Sample data for the table (you can replace it with real data)
     const donations = [
-        { id: 1, address: '0xAbc123...', amount: '500 SOL' },
-        { id: 2, address: '0xDef456...', amount: '300 USDC' },
-        { id: 3, address: '0xGhi789...', amount: '250 SOL' },
-        { id: 4, address: '0xJkl012...', amount: '800 SEND' },
+        { id: 1, address: '0xAbc123...', amount: '500 SOL', milestone: 'Funded Project A' },
+        { id: 2, address: '0xDef456...', amount: '300 USDC', milestone: 'Supported Milestone 2' },
+        { id: 3, address: '0xGhi789...', amount: '250 SOL', milestone: 'Final Stretch Goal' },
+        { id: 4, address: '0xJkl012...', amount: '800 SEND', milestone: 'Initial Seed Donation' },
     ];
 
     return (
@@ -130,27 +130,23 @@ export default function Contributions() {
                 <Line data={getDataByTimeRange(timeRange)} options={options} />
             </div>
 
-            {/* Table Section */}
-            <div className=" p-6 rounded-lg shadow-lg">
+            {/* Modern List Donation Section */}
+            <div className="p-6 rounded-lg hover:shadow-xl">
                 <h2 className="text-2xl font-semibold mb-4">Donation Records</h2>
-                <table className="min-w-full table-auto border-none">
-                    <thead>
-                        <tr className="bg-primary text-white">
-                            <th className="p-2">S/N</th>
-                            <th className="p-2">Address</th>
-                            <th className="p-2">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {donations.map((donation) => (
-                            <tr key={donation.id} className="text-center">
-                                <td className="p-2">{donation.id}</td>
-                                <td className="p-2">{donation.address}</td>
-                                <td className="p-2">{donation.amount}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <ul className="space-y-4">
+                    {donations.map((donation) => (
+                        <li key={donation.id} className="flex items-center justify-between p-4 dark:bg-gray-200 rounded-md shadow-sm">
+                            <div>
+                                <p className="font-bold text-lg">{donation.address}</p>
+                                <p className="text-green-600">{donation.amount}</p>
+                            </div>
+                            <p className="text-blue-600 font-semibold text-md mr-2 flex">
+                                <FaFlagCheckered /> 
+                                <span className='font-bold'>(<span className='text-secodary'>8</span> | <span className='text-green-700'>0</span>)</span>
+                            </p>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
