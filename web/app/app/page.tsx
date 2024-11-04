@@ -120,13 +120,13 @@ function EmptyCampaign() {
 
     return (
         <div className="flex flex-col items-center w-full">
-            <div className="px-12 animate-marquee whitespace-nowrap text-center text-red-700">
+            <div className="px-4 md:px-12 animate-marquee text-center text-red-700">
                 <span>
                     In this section of the app, interaction is still on Devnet; transactions and balances here are not reflected on the mainnet
                 </span>
                 
             </div>
-            <div className="flex flex-col justify-between h-[85vh] items-center bg-fixed w-3/6 mb-4">
+            <div className="flex flex-col justify-between h-[85vh] items-center bg-fixed lg:w-3/6 mb-4">
                 <div className="flex flex-col items-center mt-16">
                     <div className="text-4xl font-extrabold mb-4 text-center text-secondary from-primary to-secondary">
                         WELCOME!
@@ -222,7 +222,7 @@ function FeaturedCampaigns(){
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 container p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3">
                 {
                     campaigns.map((campaign)=>(
                         <BoxCampaignItem 
