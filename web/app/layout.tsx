@@ -2,11 +2,23 @@ import './global.css';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/src/constants';
-import { Poppins } from '@next/font/google';
+import { Mulish, Poppins, Roboto } from '@next/font/google';
 import { OktoProvider, BuildType } from 'okto-sdk-react';
 import { Toaster } from 'react-hot-toast';
+import Footer from '@/components/footer';
 
 const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
+
+const mulish = Mulish({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
+
+
+const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
 });
@@ -34,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={'min-h-screen '+poppins.className}>
+      <body className={'min-h-screen '+mulish.className}>
 
         <ReactQueryProvider>
             <SolanaProvider>
@@ -42,12 +54,15 @@ export default function RootLayout({
               {children}
             </SolanaProvider>
         </ReactQueryProvider>
+        <div className='mt-8'>
+          <Footer />
+        </div>
 
-        <footer className='flex justify-center items-end'>
+        {/* <footer className='flex justify-center items-end'>
           <div className="mx-auto mt-3">
             &copy; {new Date().getFullYear()} {"   "+APP_NAME.toLowerCase()}
           </div>
-        </footer>
+        </footer> */}
 
       </body>
     </html>
