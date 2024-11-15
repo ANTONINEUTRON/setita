@@ -83,11 +83,21 @@ const Footer = () => {
                         <div>
                             <h2 className="font-semibold text-xl mb-4">Let's do it</h2>
                             <div className="flex">
-                                <FaXTwitter className="mr-4 text-lg" />
-                                <SlSocialLinkedin className="mr-4 text-lg" />
-                                <FiInstagram className="mr-4 text-lg" />
-                                <FiFacebook className="mr-4 text-lg" />
-                                <BsSend className="mr-4 text-lg" />
+                                <Link href={"x.com/setita_"}>
+                                    <FaXTwitter className="mr-4 text-lg" />
+                                </Link>
+                                <Link href={""}>
+                                    <SlSocialLinkedin className="mr-4 text-lg" />
+                                </Link>
+                                <Link href={""}>
+                                    <FiInstagram className="mr-4 text-lg" />
+                                </Link>
+                                <Link href={""}>
+                                    <FiFacebook className="mr-4 text-lg" />
+                                </Link>
+                                <Link href={"mailto:antobuilds@gmail.com"}>
+                                    <BsSend className="mr-4 text-lg" />
+                                </Link>
                             </div>
                         </div>
                     </div>
