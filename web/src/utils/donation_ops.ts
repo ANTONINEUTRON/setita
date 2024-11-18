@@ -1,15 +1,12 @@
 
-import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { getBN, StreamflowSolana, Types } from "@streamflow/stream";
 import { HELIUS_ENDPOINT } from "../constants";
 import { Milestone } from "../types/milestone";
 import { SupportCurrency, supportedCurrencies } from "../types/supported_currencies";
 import * as splToken from '@solana/spl-token';
 import { getAssociatedTokenAddress } from "@solana/spl-token";
-import { DonationDetails } from "../types/donation";
 import { Fundraising } from "../types/fundraising";
-import toast from "react-hot-toast";
-import { BN } from "@streamflow/stream/dist/solana";
 
 // StreamflowSolana client.
 const solanaClient = new StreamflowSolana.SolanaStreamClient(
@@ -247,11 +244,9 @@ export async function saveMilestones(
 //     console.log("hellooo got into milestone");
 //     for (let i = 0; i < milestones.length; i++) {
 //         let milestone = milestones[i];
-
 //         let date = new Date(milestone.date);
 //         const totalPeriods = Math.max(1, (date.getTime() - Date.now()) / 1000);
 //         const amountPerPeriod = getBN(milestone.amount / totalPeriods, currency.decimals);
-
 //         const createStreamParams: Types.ICreateStreamData = {
 //             recipient: recipient, // Recipient address.
 //             tokenId: currency.address, // Token mint address.
@@ -272,7 +267,6 @@ export async function saveMilestones(
 //         };
 //         const keypair = Keypair.generate();
 //         console.log("created account " + keypair.publicKey.toString());
-
 //         const airdropSignature = await connection.requestAirdrop(
 //             keypair.publicKey,
 //             2 * 1000000000 // Airdrop 2 SOL
@@ -281,20 +275,15 @@ export async function saveMilestones(
 //         // Confirm the airdrop transaction
 //         await connection.confirmTransaction(airdropSignature);
 //         console.log(keypair.secretKey);
-
-
 //         const solanaParams = {
 //             sender: keypair, // SignerWalletAdapter or Keypair of Sender account
 //             isNative: false,// [optional] [WILL CREATE A wSOL STREAM] Wether Stream or Vesting should be paid with Solana native token or not
 //         };
 //         console.log(keypair.secretKey);
-
-
 //         try {
 //             const { ixs, tx, metadata } = await solanaClient.create(createStreamParams, solanaParams);
 //         } catch (error) {
 //             console.log(error);
 //         }
 //     }
-
 // }

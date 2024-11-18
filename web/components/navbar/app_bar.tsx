@@ -93,16 +93,16 @@ export default function AppBar(){
                                 <div
                                     tabIndex={0}
                                     className="menu menu-sm dropdown-content  text-white font-bold rounded-box z-[2] mt-3 w-52  shadow-xl bg-secondary">
-                                        <span className="text-lg mx-auto mb-4">Sign in with</span>
+                                        <span className=" mx-auto mb-4">Sign in with your wallet</span>
                                         <div className="mx-auto">
                                             <WalletButton />
                                         </div>
-                                        <span className="mx-auto my-2">OR</span>
+                                        {/* <span className="mx-auto my-2">OR</span>
                                         <div className="mx-auto">
                                             <ExtendedButton 
                                                 text="Google Using Okto"
                                                 icon={<FaGoogle className="p-2 mx-auto" />}/>
-                                        </div>
+                                        </div> */}
                                 </div>
                             )
                     }

@@ -47,7 +47,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={'min-h-screen '+mulish.className}>
-
         <ReactQueryProvider>
             <SolanaProvider>
               <Toaster />

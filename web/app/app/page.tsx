@@ -140,20 +140,20 @@ function EmptyCampaign() {
 
                     {showPrompt ? (
                         <div className="bg-secondary text-white p-6 rounded-lg">
-                            <div className="flex justify-between">
+                            <div className="flex justify-between gap-3">
                                 <h2 className="text-md font-bold mb-4">
                                     Connect to create a campaign
                                 </h2>
-                                <span onClick={() => setShowPrompt(false)} className="flex justify-end mb-5 text-xl font-bold">
+                                <span onClick={() => setShowPrompt(false)} className="flex justify-end mb-10 ml-8 text-xl font-bold">
                                     <MdClose />
                                 </span>
                             </div>
                             <div className="flex flex-col md:flex-row justify-center items-center">
                                 <WalletButton />
-                                <div className="m-5">OR</div>
+                                {/* <div className="m-5">OR</div>
                                 <ExtendedButton
                                     text="Sign in With Google"
-                                    icon={<FaGoogle className="p-2 mx-auto" />} />
+                                    icon={<FaGoogle className="p-2 mx-auto" />} /> */}
                             </div>
                         </div>
                     ) : (
@@ -199,8 +199,8 @@ function FeaturedCampaigns(){
         let fCampaigns = response.data;
 
         if (fCampaigns) {
-            if(fCampaigns.length > 6){
-                setCampaigns(fCampaigns.slice(0,7));
+            if(fCampaigns.length > 3){
+                setCampaigns(fCampaigns.slice(0,3));
             }else{
                 setCampaigns(fCampaigns);
             }

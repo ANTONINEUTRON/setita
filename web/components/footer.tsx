@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import Image from "next/image"; 
 import { FiFacebook } from "react-icons/fi";
@@ -8,11 +10,21 @@ import { BsSend } from "react-icons/bs";
 import { FiInstagram } from "react-icons/fi";
 import { APP_NAME } from "@/src/constants";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const Footer = () => {
+    const router = usePathname();
+    const [ishome, setisHome] = useState(false);
+
+    useEffect(()=>{
+        console.log(router);
+        
+        setisHome(router === "/");
+    },[router])
+
     return (
-        <footer className="bg-br-50 text-white bg-[#AE8D5B]">
-            <div className="relative px-6 py-8">
+        <footer className={`bg-br-50 text-white ` + (ishome ?"bg-[#AE8D5B]" : "")}>
+            {ishome && (<div className="relative px-6 py-8">
                 <div className="absolute top-[-70%] left-[50%] transform -translate-x-1/2  w-[90%] md:w-[50%] bg-gradient-to-r from-[#E4D9C8] to-[#3E0566] p-6 rounded-lg flex justify-between items-center flex-wrap gap-3">
                     <div className="flex flex-col gap-2">
                         <div className="font-semibold">
@@ -39,9 +51,9 @@ const Footer = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>)}
 
-            <section className="text-white py-10">
+            {ishome && (<section className="text-white py-10">
                 <div className="container mx-auto px-8">
                     <Image src={"/brand/setita.png"} width={150} height={40} className="mb-8 mt-8 lg:mt-0" alt="Logo" />
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -102,7 +114,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>)}
             <div className="relative z-50">
                 <Image
                     className="w-full object-cover"
