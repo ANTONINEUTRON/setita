@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomButton from '@/components/buttons/custom_button';
+import FaqItem from '@/components/faq/faq_items';
 
 export default function Page() {
   return (
@@ -49,13 +50,23 @@ export default function Page() {
 
 
       {/* FAQ Section */}
-      {/* <div className=" w-full px-5">
+      <div className=" w-full px-5">
         <section className="bg-w-50 py-10 w-full lg:w-1/2 mx-auto">
           <h2 className="text-2xl text-center text-b-900 font-bold mb-7">
-            Frequently Asked Questions
+          Frequently Asked Questions
           </h2>
           <div className="bg-w-600 bg-gray-400 py-5 px-10 rounded-lg text-black">
-            <div className="collapse collapse-arrow border-b-2 border-b-200 rounded-none">
+            <FaqItem
+              title='How does milestone-based crowdfunding work?'
+              details='Anyone with a valid project and a plan...' />
+            <FaqItem
+              title='How does milestone-based crowdfunding work?'
+              details='Anyone with a valid project and a plan...' />
+            <FaqItem
+              title='How does milestone-based crowdfunding work?'
+              details='Anyone with a valid project and a plan...' />
+          </div>
+            {/* <div className="collapse collapse-arrow border-b-2 border-b-200 rounded-none">
               <input type="checkbox" />
               <div className="collapse-title font-semibold">
                 How does milestone-based crowdfunding work?
@@ -104,9 +115,9 @@ export default function Page() {
                 Anyone with a valid project and a plan...
               </div>
             </div>
-          </div>
+          </div> */}
         </section>
-      </div> */}
+      </div>
       
       {/* CTA 2 */}
       <div className="flex justify-center items-center py-12 bg-[#c3B2D0] text-black">
@@ -131,7 +142,7 @@ export default function Page() {
       </div>
 
       {/*Stay updated*/}
-      {/* <section className="flex justify-center items-center   py-12">
+      <section className="flex justify-center items-center py-16">
         <div className="flex flex-col items-center text-center max-w-xl w-full">
           <h2 className="text-2xl font-bold text-b-900 mb-4">Stay Updated!</h2>
           <p className="text-lg text-b-400 mb-6">
@@ -144,23 +155,22 @@ export default function Page() {
               placeholder="Enter your email address"
               className="w-[70%] px-4 py-3 border-2 border-gray-300 bg-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-
             <button className="w-[30%] py-3 text-b-900 border-[0.5px] border-gray-300 outline-none">
               Subscribe
             </button>
           </div>
         </div>
-      </section> */}
+      </section>
 
 
       {/* About us */}
-      <div className='flex flex-col justify-center items-center py-10 text-lg text-center px-2 md:px-0'>
+      {/* <div className='flex flex-col justify-center items-center py-10 text-lg text-center px-2 md:px-0'>
         <div className='font-semibold text-2xl'>We are currently building and integrating other features</div>
         <div>Help us in achieving this lofty goal by Joining our waitlist</div>
         <div>
           <WaitlistForm/>
         </div>
-      </div>
+      </div> */}
     </div>
     
   );
