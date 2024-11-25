@@ -4,7 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomButton from '@/components/buttons/custom_button';
-import FaqItem from '@/components/faq/faq_items';
+import FaqItem from '@/components/faq_items';
+import { IconSquareArrowRight } from '@tabler/icons-react';
+import { BsArrowRight } from 'react-icons/bs';
+import { FaChartGantt } from 'react-icons/fa6';
+import FeaturesItem from '@/components/features_item';
 
 export default function Page() {
   return (
@@ -33,6 +37,8 @@ export default function Page() {
         </section>
         
       </div>
+
+      {/* How it works session */}
       <section className='bg-secondary opacity-90 text-white flex flex-col items-center p-8'>
         <div className='font-bold text-2xl my-8'>HOW IT WORKS</div>
         <div className='grid grid-cols-1 md:grid-cols-3 text-black'>
@@ -48,6 +54,26 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Features section */}
+      <section className='bg-inherit opacity-90 flex flex-col items-center p-12 px-24'>
+        <div className='font-bold text-2xl my-4'>What we offer </div>
+        <div className='mb-10 w-2/3 text-center'>Need assistance? Setita’s Guided Campaign feature helps you structure your campaign, set milestones, and engage the right supporters effectively.</div>
+        
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <FeaturesItem />
+          <FeaturesItem />
+          <FeaturesItem />
+          <FeaturesItem />
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className='bg-primaryAccent w-full text-black text-center py-8'>
+        <div className=' text-2xl mb-2'>
+          Take control of your Campaign
+        </div>
+        <GetStartedButton />
+      </section>
 
       {/* FAQ Section */}
       <div className=" w-full px-5">
@@ -66,61 +92,11 @@ export default function Page() {
               title='How does milestone-based crowdfunding work?'
               details='Anyone with a valid project and a plan...' />
           </div>
-            {/* <div className="collapse collapse-arrow border-b-2 border-b-200 rounded-none">
-              <input type="checkbox" />
-              <div className="collapse-title font-semibold">
-                How does milestone-based crowdfunding work?
-              </div>
-              <div className="collapse-content text-b-400">
-                Anyone with a valid project and a plan...
-              </div>
-            </div>
-
-            <div className="collapse collapse-arrow border-b-2 border-b-200 mt-4 rounded-none">
-              <input type="checkbox" />
-              <div className="collapse-title font-semibold text-black">
-                How do I donate
-              </div>
-              <div className="collapse-content text-b-400">
-                Anyone with a valid project and a plan...
-              </div>
-            </div>
-
-            <div className="collapse collapse-arrow border-b-2 border-b-200 mt-4 rounded-none">
-              <input type="checkbox" />
-              <div className="collapse-title font-semibold text-black">
-                What type of campaigns are eligible
-              </div>
-              <div className="collapse-content text-b-400">
-                Anyone with a valid project and a plan...
-              </div>
-            </div>
-
-            <div className="collapse collapse-arrow border-b-2 border-b-200 mt-4 rounded-none">
-              <input type="checkbox" />
-              <div className="collapse-title font-semibold text-black">
-                Who can start a campaign
-              </div>
-              <div className="collapse-content text-b-400">
-                Anyone with a valid project and a plan...
-              </div>
-            </div>
-
-            <div className="collapse collapse-arrow border-b-2 border-b-200 mt-4 rounded-none">
-              <input type="checkbox" />
-              <div className="collapse-title font-semibold text-black">
-                Who can start a campaign?
-              </div>
-              <div className="collapse-content text-b-400">
-                Anyone with a valid project and a plan...
-              </div>
-            </div>
-          </div> */}
         </section>
       </div>
       
       {/* CTA 2 */}
-      <div className="flex justify-center items-center py-12 bg-[#c3B2D0] text-black">
+      <div className="flex justify-center items-center py-12 bg-primaryAccent text-black">
         <div className="flex flex-col items-center text-center w-full gap-5 lg:w-1/2">
           <h2 className="text-2xl font-semibold  text-b-900">
             Ready to fund your vision?
@@ -155,7 +131,7 @@ export default function Page() {
               placeholder="Enter your email address"
               className="w-[70%] px-4 py-3 border-2 border-gray-300 bg-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button className="w-[30%] py-3 text-b-900 border-[0.5px] border-gray-300 outline-none">
+            <button className="w-[30%] py-3 text-b-900 border-[0.5px] hover:bg-primary hover:text-white border-gray-300 outline-none">
               Subscribe
             </button>
           </div>
@@ -175,7 +151,6 @@ export default function Page() {
     
   );
 }
-
 
 function GetStartedButton() {
   return (

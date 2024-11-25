@@ -21,6 +21,8 @@ module.exports = {
         primary: '#3f0566',
         secondary: '#9f763b',
         tertiary: '#e5dcd5',
+        primaryAccent: '#C3B2D0',
+        secondaryAccent: '#dcceb9'
       },
     },
   },

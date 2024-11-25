@@ -1,4 +1,3 @@
-
 interface FaqItemProps{
     title: string,
     details: string,
