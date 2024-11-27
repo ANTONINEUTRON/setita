@@ -1,4 +1,4 @@
-import { Fundraising } from "@/src/types/fundraising";
+import { Fundraising } from "@/libs/types/fundraising";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

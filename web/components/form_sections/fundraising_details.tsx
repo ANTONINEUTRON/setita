@@ -2,9 +2,9 @@ import { Checkbox, DatePicker } from "antd";
 import { MdArrowDropDown } from "react-icons/md";
 import { useState, useEffect } from "react";
 import FormItem from "../form_item";
-import { Category } from "@/src/types/category";
-import { SupportCurrency, supportedCurrencies as availableCurrencies } from "@/src/types/supported_currencies";
-import { CampaignGoal } from "@/src/types/campaign_goal";
+import { Category } from "@/libs/types/category";
+import { SupportCurrency, supportedCurrencies as availableCurrencies } from "@/libs/types/supported_currencies";
+import { CampaignGoal } from "@/libs/types/campaign_goal";
 import dayjs, { Dayjs } from "dayjs";
 const { RangePicker } = DatePicker;
 

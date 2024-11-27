@@ -1,4 +1,4 @@
-import { Milestone } from "@/src/types/milestone";
+import { Milestone } from "@/libs/types/milestone";
 import { useEffect, useState } from "react";
 
 interface MilestoneItemProps {

@@ -8,7 +8,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { BsSend } from "react-icons/bs";
 import { FiInstagram } from "react-icons/fi";
-import { APP_NAME } from "@/src/constants";
+import { APP_NAME } from "@/libs/constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 

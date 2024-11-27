@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { AnchorProvider } from '@coral-xyz/anchor';
-import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
+import { WalletError } from '@solana/wallet-adapter-base';
 import {
   AnchorWallet,
   useConnection,
@@ -17,7 +17,7 @@ import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
-import { HELIUS_ENDPOINT } from '@/src/constants';
+import { HELIUS_ENDPOINT } from '@/libs/constants';
 // import { useCluster } from '../cluster/cluster-data-access';
 
 require('@solana/wallet-adapter-react-ui/styles.css');

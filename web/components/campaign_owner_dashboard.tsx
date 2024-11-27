@@ -1,6 +1,6 @@
 "use client"
 
-import { Fundraising } from '@/src/types/fundraising';
+import { Fundraising } from '@/libs/types/fundraising';
 import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import Contributions from './campaign_sections/contributions';

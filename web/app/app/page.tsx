@@ -10,10 +10,12 @@ import ExtendedButton from "@/components/buttons/extended_button";
 import { FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Fundraising } from "@/src/types/fundraising";
+import { Fundraising } from "@/libs/types/fundraising";
 import axios from "axios";
 import { OktoContextType, useOkto } from "okto-sdk-react";
 import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
+import { useAtom } from "jotai";
+import { showWalletAtom } from "@/libs/atoms/wallet_atoms";
 
 export default function AppPage(){
     const [isUserHaveCampaign, setIsUserHaveCampaign] = useState(false);
@@ -99,12 +101,12 @@ function EmptyCampaign() {
     const { connected, } = useWallet(); // Get wallet connection info
     const router = useRouter(); // For navigation
     const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
-    const { showWidgetModal } = useOkto() as OktoContextType;
 
     const showCreateCampaignForm = async () => {
         if (!connected) {
             // Show wallet connection prompt instead of the "Create A Campaign" button
             setShowPrompt(true);
+            // toast.error("Connect your wallet in order to create campaign");
         } else {
             // If the wallet is connected, redirect to /app/create
             router.push('/app/create/');

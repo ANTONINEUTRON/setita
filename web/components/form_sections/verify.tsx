@@ -1,4 +1,4 @@
-import { CampaignDetails } from "@/src/types/fundraising";
+import { CampaignDetails } from "@/libs/types/fundraising";
 import { Radio } from "antd";
 
 interface VerifyProps {

@@ -1,4 +1,4 @@
-import { Fundraising } from "@/src/types/fundraising"
+import { Fundraising } from "@/libs/types/fundraising"
 import Link from "next/link"
 import { MdArrowForward, MdShare } from "react-icons/md"
 import ExtendedButton from "../buttons/extended_button"

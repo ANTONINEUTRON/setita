@@ -1,5 +1,5 @@
-import { Fundraising } from "@/src/types/fundraising";
-import { saveFundraisingToDB } from "@/src/utils/firebase_ops";
+import { Fundraising } from "@/libs/types/fundraising";
+import { saveFundraisingToDB } from "@/libs/utils/firebase_ops";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

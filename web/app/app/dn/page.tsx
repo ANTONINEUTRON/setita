@@ -2,7 +2,7 @@
 
 import CustomButton from "@/components/buttons/custom_button";
 import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
-import { Fundraising } from "@/src/types/fundraising";
+import { Fundraising } from "@/libs/types/fundraising";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
 import Link from "next/link";

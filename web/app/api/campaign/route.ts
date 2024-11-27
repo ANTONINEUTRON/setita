@@ -1,4 +1,4 @@
-import { getFundRaisingRecord } from "@/src/utils/firebase_ops";
+import { getFundRaisingRecord } from "@/libs/utils/firebase_ops";
 import { NextRequest, NextResponse } from "next/server";
 
 

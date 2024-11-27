@@ -39,7 +39,7 @@ export default function Page() {
       </div>
 
       {/* How it works session */}
-      <section className='bg-secondary opacity-90 text-white flex flex-col items-center p-8'>
+      {/* <section className='bg-secondary opacity-90 text-white flex flex-col items-center p-8'>
         <div className='font-bold text-2xl my-8'>HOW IT WORKS</div>
         <div className='grid grid-cols-1 md:grid-cols-3 text-black'>
           <HowItWorksItem
@@ -52,7 +52,7 @@ export default function Page() {
             titleNum='3'
             details='Share with your donors' />
         </div>
-      </section>
+      </section> */}
 
       {/* Features section */}
       <section className='bg-inherit opacity-90 flex flex-col items-center p-12 px-24'>
@@ -156,7 +156,7 @@ function GetStartedButton() {
   return (
     <div>
       <Link href="/app">
-        <button className="px-6 py-2 bg-secondary text-white rounded hover:bg-blue-700">
+        <button className="px-6 py-2 bg-secondary text-white rounded hover:bg-primaryAccent">
           Get Started
         </button>
       </Link>

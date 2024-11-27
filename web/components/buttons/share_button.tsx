@@ -1,4 +1,4 @@
-import { Fundraising } from "@/src/types/fundraising";
+import { Fundraising } from "@/libs/types/fundraising";
 import { IconCopy } from "@tabler/icons-react";
 import toast from "react-hot-toast";
 import { MdCopyAll, MdShare } from "react-icons/md";

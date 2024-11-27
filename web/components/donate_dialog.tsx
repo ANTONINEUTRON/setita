@@ -1,9 +1,9 @@
 "use client"
-import { HELIUS_ENDPOINT } from "@/src/constants";
-import { Fundraising } from "@/src/types/fundraising";
-import { Milestone } from "@/src/types/milestone";
-import { supportedCurrencies } from "@/src/types/supported_currencies";
-import { createInitialAmountTransaction, fetchUserBalance, saveMilestones, sumMilestoneAmount } from "@/src/utils/donation_ops";
+import { HELIUS_ENDPOINT } from "@/libs/constants";
+import { Fundraising } from "@/libs/types/fundraising";
+import { Milestone } from "@/libs/types/milestone";
+import { supportedCurrencies } from "@/libs/types/supported_currencies";
+import { createInitialAmountTransaction, fetchUserBalance, saveMilestones, sumMilestoneAmount } from "@/libs/utils/donation_ops";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Connection } from "@solana/web3.js";
 import { useEffect, useRef, useState } from "react";

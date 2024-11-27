@@ -4,21 +4,27 @@ import Link from "next/link";
 import Image from 'next/image';
 import { FaGoogle, FaUserCircle } from "react-icons/fa";
 import { useOkto, type OktoContextType } from 'okto-sdk-react';
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import WalletButton from "../buttons/wallet_button";
 import ExtendedButton from "../buttons/extended_button";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAtom, useAtomValue } from "jotai";
+import { showWalletAtom } from "@/libs/atoms/wallet_atoms";
 
 export default function AppBar(){
     const [isUserIn, setIsUserIn] = useState(false);
-    const { showWidgetModal } = useOkto() as OktoContextType;
-    const { connected,connecting, disconnect } = useWallet(); 
+    const { connected,connecting, disconnect,publicKey } = useWallet(); 
+    const [address, setAddress] = useState("");
 
     useEffect(() => {
         setIsUserIn(connected);  
+        if(connected){
+            let pKey = publicKey?.toString()
+            setAddress(pKey!.slice(0, 6) + "......." + pKey!.slice(pKey!.length - 5, pKey!.length - 1));
+        }
     }, [connected]);
-    
+
     return (
         <div className="navbar bg-primary container mx-auto rounded-md text-white">
             <div className="navbar-start">
@@ -39,28 +45,8 @@ export default function AppBar(){
             </div>
             <div className="navbar-end">
                 <div className="dropdown dropdown-end">
-                    {/* <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-                        <div className="indicator">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.35-4.35" />
-                            </svg>
-                            <span className="badge badge-sm indicator-item">8</span>
-                        </div>
-                    </div>
-                    <div
-                        tabIndex={0}
-                        className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
-                        <div className="card-body">
-                            <span className="text-lg font-bold">8 Items</span>
-                            <span className="text-info">Subtotal: $999</span>
-                            <div className="card-actions">
-                                <button className="btn btn-primary btn-block">View cart</button>
-                            </div>
-                        </div>
-                    </div> */}
-                </div>
-                <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                    <div tabIndex={0} role="button"  
+                    className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             {/* <img
                                 alt="Tailwind CSS Navbar component"
@@ -68,7 +54,7 @@ export default function AppBar(){
                             {
                                 connecting
                                     ? (<AiOutlineLoading3Quarters className="animate-spin bg-white" />)
-                                    : (<FaUserCircle size={35} className="text-secondary" />)
+                                    : (<FaUserCircle size={40} className="text-secondary" />)
                             }
                         </div>
                     </div>
@@ -79,14 +65,17 @@ export default function AppBar(){
                                     tabIndex={0}
                                     className="menu menu-sm dropdown-content text-white font-bold rounded-box z-[2] mt-3 w-52 p-2  shadow-xl bg-secondary">
                                     <div>
+                                        <li className="flex justify-center text-center text-primaryAccent mb-4">
+                                            {address}
+                                        </li>
                                         <li>
                                             <a className="justify-between">
                                                 Profile
-                                                <span className="badge">New</span>
+                                                {/* <span className="badge">New</span> */}
                                             </a>
                                         </li>
                                         <li><a>Settings</a></li>
-                                        <li onClick={()=>disconnect()}><a>Logout</a></li>
+                                        <li onClick={()=>disconnect()}><a>Disconnect</a></li>
                                     </div>
                                 </ul>
                             ):(

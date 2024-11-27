@@ -1,4 +1,4 @@
-import { Fundraising } from "@/src/types/fundraising";
+import { Fundraising } from "@/libs/types/fundraising";
 import ShareButton from "../buttons/share_button";
 
 export default function CampaignDetails({ campaign }: { campaign: Fundraising }){

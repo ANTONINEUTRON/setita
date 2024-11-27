@@ -1,5 +1,5 @@
-import { Donation, DonationDetails, } from "@/src/types/donation";
-import { Fundraising } from "@/src/types/fundraising";
+import { Donation, DonationDetails, } from "@/libs/types/donation";
+import { Fundraising } from "@/libs/types/fundraising";
 import {
     ActionPostResponse,
     createPostResponse,
@@ -11,9 +11,9 @@ import {
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { clusterApiUrl, Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { NextRequest, NextResponse } from 'next/server'
-import { getFundRaisingRecord, saveDonationRecordToDB } from "@/src/utils/firebase_ops";
-import { supportedCurrencies } from "@/src/types/supported_currencies";
-import { createSPLTokenTransferTransaction } from "@/src/utils/donation_ops";
+import { getFundRaisingRecord, saveDonationRecordToDB } from "@/libs/utils/firebase_ops";
+import { supportedCurrencies } from "@/libs/types/supported_currencies";
+import { createSPLTokenTransferTransaction } from "@/libs/utils/donation_ops";
 
 const headers = createActionHeaders();
 

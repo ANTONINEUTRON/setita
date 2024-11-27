@@ -5,16 +5,16 @@ import BasicInformation from "@/components/form_sections/basic_information";
 import FundraisingDetails from "@/components/form_sections/fundraising_details";
 import Media from "@/components/form_sections/media";
 import Verify from "@/components/form_sections/verify";
-import { CampaignDetails, Fundraising } from "@/src/types/fundraising";
-import { supportedCurrencies } from "@/src/types/supported_currencies";
+import { CampaignDetails, Fundraising } from "@/libs/types/fundraising";
+import { supportedCurrencies } from "@/libs/types/supported_currencies";
 import { useRef, useState } from "react";
 import { MdAddLink, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import toast from "react-hot-toast";
-import { Category } from "@/src/types/category";
+import { Category } from "@/libs/types/category";
     import axios from "axios";
 import {  useWallet } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
-import { HELIUS_ENDPOINT } from "@/src/constants";
+import { HELIUS_ENDPOINT } from "@/libs/constants";
 import { useRouter } from "next/navigation";
 
 export default function CreatePage() {

@@ -10,7 +10,7 @@ export default function FeaturesItem() {
             </div>
             <div className='font-bold text-lg'>Feature #1</div>
             <div className='py-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos doloribus sapiente sint numquam esse dolores rerum illo accusantium dolorum aliquam animi aspernatur, delectus magni est repudiandae veritatis, eius, asperiores magnam!</div>
-            <Link href={""} className="flex gap-3 items-center mb-4 hover:text-primary text-sm font-semibold">
+            <Link href={""} className="flex gap-3 items-center mb-4 hover:text-primary hover:opacity-50 text-sm font-semibold">
                 Learn more
                 <BsArrowRight />
             </Link>

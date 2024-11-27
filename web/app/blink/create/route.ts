@@ -1,6 +1,6 @@
-import {  Fundraising } from "@/src/types/fundraising";
-import { Category } from "@/src/types/category";
-import { saveFundraisingToDB } from "@/src/utils/firebase_ops";
+import {  Fundraising } from "@/libs/types/fundraising";
+import { Category } from "@/libs/types/category";
+import { saveFundraisingToDB } from "@/libs/utils/firebase_ops";
 import {
   ActionPostResponse,
   createActionHeaders,
