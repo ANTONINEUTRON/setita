@@ -2,14 +2,11 @@
 
 import Link from "next/link";
 import Image from 'next/image';
-import { FaGoogle, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import {  useEffect,  useState } from "react";
 import WalletButton from "../buttons/wallet_button";
-import ExtendedButton from "../buttons/extended_button";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useAtom, useAtomValue } from "jotai";
-import { showWalletAtom } from "@/libs/atoms/wallet_atoms";
 
 export default function AppBar(){
     const [isUserIn, setIsUserIn] = useState(false);
