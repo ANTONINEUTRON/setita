@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Fundraising } from "@/libs/types/fundraising";
 import axios from "axios";
-import { OktoContextType, useOkto } from "okto-sdk-react";
 import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
 import { useAtom } from "jotai";
 import { showWalletAtom } from "@/libs/atoms/wallet_atoms";

@@ -3,8 +3,7 @@
 import Link from "next/link";
 import Image from 'next/image';
 import { FaGoogle, FaUserCircle } from "react-icons/fa";
-import { useOkto, type OktoContextType } from 'okto-sdk-react';
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import {  useEffect,  useState } from "react";
 import WalletButton from "../buttons/wallet_button";
 import ExtendedButton from "../buttons/extended_button";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
