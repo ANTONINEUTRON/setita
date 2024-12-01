@@ -7,11 +7,11 @@ export default function CampaignDetails({ campaign }: { campaign: Fundraising })
             <div className=" flex justify-between">
                 <div className="indicator">
                     <h1 className="text-3xl font-bold mb-4">Campaign Details</h1>
-                    {
+                    {/* {
                         !campaign.trxHash && (
                             <span className="badge badge-sm indicator-item text-white p-2 bg-primary">Created with Blinks</span>
                         )
-                    }
+                    } */}
                 </div>
                 <ShareButton
                     campaign={campaign} />
@@ -20,14 +20,14 @@ export default function CampaignDetails({ campaign }: { campaign: Fundraising })
 
             <div className="border rounded-lg p-4">
                 {/* Title */}
-                <div className="my-4">
+                <div className="mt-4">
                     <div className="text-lg font-semibold">
                         {campaign.data.title || "N/A"}
                     </div>
                 </div>
 
                 {/* Description */}
-                <div className="my-10">
+                <div className="mt-2 mb-4">
                     <div >{campaign.data.description || "N/A"}</div>
                 </div>
 

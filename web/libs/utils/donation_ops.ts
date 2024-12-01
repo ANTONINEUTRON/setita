@@ -8,6 +8,12 @@ import * as splToken from '@solana/spl-token';
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Fundraising } from "../types/fundraising";
 
+// "@swc-node/register": "~1.8.0",
+//     "@swc/cli": "^0.5.1",
+//         "@swc/core": "~1.3.85",
+//             "@swc/helpers": "~0.5.2",
+//                 "@swc/jest": "0.2.20",
+
 // StreamflowSolana client.
 const solanaClient = new StreamflowSolana.SolanaStreamClient(
     HELIUS_ENDPOINT
@@ -199,6 +205,7 @@ export async function saveMilestones(
             let date = new Date(milestone.date);
             const totalPeriods = Math.max(1, (date.getTime() - Date.now()) / 1000);
             const amountPerPeriod = getBN(milestone.amount / totalPeriods, currency.decimals);
+            console.log(amountPerPeriod);
 
             const createStreamParams: Types.ICreateStreamData = {
                 recipient: recipient, // Recipient address.
@@ -221,11 +228,14 @@ export async function saveMilestones(
             
             const solanaParams = {
                 sender: wallet.adapter, // SignerWalletAdapter or Keypair of Sender account
-                isNative: false,// [optional] [WILL CREATE A wSOL STREAM] Wether Stream or Vesting should be paid with Solana native token or not
+                isNative: true,// [optional] [WILL CREATE A wSOL STREAM] Wether Stream or Vesting should be paid with Solana native token or not
             };
 
+            console.log("hellooo vvvvv got into milestone");
             try {
+                console.log("go milestone");
                 const { ixs, tx, metadata } = await solanaClient.create(createStreamParams, solanaParams);
+                console.log("hellooo got into milestone");
             } catch (error) {
                 console.log(error);
 

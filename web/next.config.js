@@ -15,7 +15,11 @@ const nextConfig = {
       'pino-pretty', 
       'encoding',
     ];
+
     return config;
+  },
+  experimental: {
+    serverComponentsExternalPackages: ["@node-rs/argon2"],
   },
   nx: {
     // Set this to true if you would like to use SVGR

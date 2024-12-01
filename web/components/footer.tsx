@@ -17,9 +17,7 @@ const Footer = () => {
     const [ishome, setisHome] = useState(false);
 
     useEffect(()=>{
-        console.log(router);
-        
-        setisHome(router === "/");
+        setisHome(router === "/" || router === "/faq" || router === "/about-us");
     },[router])
 
     return (
@@ -77,10 +75,10 @@ const Footer = () => {
 
                         <div>
                             <h2 className="font-semibold text-xl mb-4">Resources</h2>
-                            <div>
-                                <h4 className="text-sm mb-2">About us</h4>
-                                <h4 className="text-sm mb-2">FAQ</h4>
-                                <h4 className="text-sm mb-2">Contact Us</h4>
+                            <div className="flex flex-col">
+                                <Link href={"/about-us"} className="text-sm mb-2">About us</Link>
+                                <Link href={"/faq"} className="text-sm mb-2">FAQ</Link>
+                                <Link href={"/"} className="text-sm mb-2">Contact Us</Link>
                             </div>
                         </div>
 

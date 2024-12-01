@@ -1,27 +1,23 @@
 import UnfurlBlink from '@/components/view_blink';
 import WaitlistForm from '@/components/waitlist_form';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import CustomButton from '@/components/buttons/custom_button';
 import FaqItem from '@/components/faq_items';
 import { IconSquareArrowRight } from '@tabler/icons-react';
 import { BsArrowRight } from 'react-icons/bs';
-import { FaChartGantt } from 'react-icons/fa6';
+import { FaArrowRightToBracket, FaChartGantt } from 'react-icons/fa6';
 import FeaturesItem from '@/components/features_item';
+import GetStartedButton from '@/components/buttons/get_started_button';
+import HomeNavbar from '@/components/navbar/home_navbar';
+import { FaArrowRight, FaPlus } from 'react-icons/fa';
 
 export default function Page() {
   return (
     <div>
       <div className="flex flex-col min-h-screen">
         {/* Header Section */}
-        <header className=" bg-primary sticky">
-          <div className="flex justify-between items-center p-4 container m-auto">
-            <Image src="/brand/setita.png" width="400" height="150" alt={'setita_logo'} className="h-7 w-32"/>
-          
-            <GetStartedButton/>
-          </div>
-        </header>
+        <HomeNavbar />
 
         {/* Hero Section */}
         <section className="relative flex-1 flex flex-col justify-center items-center text-center bg-gradient-to-b from-primary to-secondary text-white py-20 px-2 md:px-0">
@@ -31,7 +27,8 @@ export default function Page() {
           </p>
           {/* <Link href="/blink/view/">/ */}
           <Link href="https://dial.to/?action=solana-action%3Ahttps://setita.com/blink/create">
-            <CustomButton text="Try out our Blink" />
+            {/* <CustomButton text="Try out our Blink" /> */}
+            <GetStartedButton />
           </Link>
           
         </section>
@@ -91,7 +88,12 @@ export default function Page() {
             <FaqItem
               title='How does milestone-based crowdfunding work?'
               details='Anyone with a valid project and a plan...' />
+              <div className='text-center mt-8 font-bold text-sm text-primary flex justify-center items-center gap-2'>
+                <Link href={"/faq"}>View All</Link>
+                <FaArrowRight />
+              </div>
           </div>
+          
         </section>
       </div>
       
@@ -149,18 +151,6 @@ export default function Page() {
       </div> */}
     </div>
     
-  );
-}
-
-function GetStartedButton() {
-  return (
-    <div>
-      <Link href="/app">
-        <button className="px-6 py-2 bg-secondary text-white rounded hover:bg-primaryAccent">
-          Get Started
-        </button>
-      </Link>
-    </div>
   );
 }
 

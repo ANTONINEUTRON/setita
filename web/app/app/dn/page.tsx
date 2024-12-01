@@ -2,6 +2,7 @@
 
 import CustomButton from "@/components/buttons/custom_button";
 import BoxCampaignItem from "@/components/campaign_items/box_campaign_item";
+import SearchFilterComponent from "@/components/search_filter_component";
 import { Fundraising } from "@/libs/types/fundraising";
 import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
@@ -48,17 +49,18 @@ export default function DonationPage() {
 
 
     return (
-        <section className="p-8 flex items-center justify-center min-h-[70vh]">
+        <section className="md:p-8 flex items-center justify-center min-h-[70vh]">
             {
                 <div className="min-h-screen container mx-auto">
                     {/* List of campigns */}
                     <div className="p-4">
                         {/* Header */}
-                        <div className=" mb-6">
-                            <div>
+                        <div className="mb-6">
+                            <div className="flex justify-between items-center">
                                 <span className="text-2xl font-bold dark:text-white text-primary mb-2">
                                     DONATE
                                 </span>
+                                <SearchFilterComponent />
                             </div>
                             {/* Items goes here */}
                             {

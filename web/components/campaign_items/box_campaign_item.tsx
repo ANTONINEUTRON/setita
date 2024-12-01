@@ -24,16 +24,16 @@ export default function BoxCampaignItem ({campaign}:{campaign: Fundraising}){
                 <div className="relative bg-secondary m-2 -z-20 rounded-lg">
                     {/* Background image */}
                     <div
-                        className="inset-0 bg-cover bg-center h-72 rounded-lg"
+                        className="inset-0 bg-cover bg-center h-64 rounded-lg"
                         style={campaignBg}>
                         {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-gray-900 opacity-70"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-gray-900 opacity-90"></div>
                         {/* Text content */}
-                        <div className="relative p-2 text-white top-44">  
+                        <div className="relative p-2 text-white top-40">  
                             <div className="text-lg font-bold line-clamp-2">
                                 {campaign.data.title}
                             </div>
-                            <div className="text-md line-clamp-2">
+                            <div className="text-md line-clamp-1">
                                 {campaign.data.description}
                             </div>
                             {/* <div className="mt-2 text-sm">

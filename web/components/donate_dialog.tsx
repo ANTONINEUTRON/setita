@@ -82,8 +82,6 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
     }
 
     const handleDonate = async()=>{
-        console.log("CLICJ");
-        
         if(publicKey == null){
             toast("Please connect your wallet before you can donate");
         }else{
