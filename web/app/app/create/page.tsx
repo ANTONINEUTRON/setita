@@ -1,21 +1,28 @@
 "use client";
 
 import CustomButton from "@/components/buttons/custom_button";
-import BasicInformation from "@/components/form_sections/basic_information";
-import FundraisingDetails from "@/components/form_sections/fundraising_details";
-import Media from "@/components/form_sections/media";
-import Verify from "@/components/form_sections/verify";
+import BasicInformation from "@/components/campaign_creationg_sections/basic_information";
+import FundraisingDetails from "@/components/campaign_creationg_sections/fundraising_details";
+import Media from "@/components/campaign_creationg_sections/media";
+import Verify from "@/components/campaign_creationg_sections/verify";
 import { CampaignDetails, Fundraising } from "@/libs/types/fundraising";
 import { supportedCurrencies } from "@/libs/types/supported_currencies";
 import { useRef, useState } from "react";
 import { MdAddLink, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Category } from "@/libs/types/category";
-    import axios from "axios";
+import axios from "axios";
 import {  useWallet } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { HELIUS_ENDPOINT } from "@/libs/constants";
 import { useRouter } from "next/navigation";
+import { Roboto } from '@next/font/google';
+import CreateMilestones from "@/components/campaign_creationg_sections/create_milestones";
+
+const roboto = Roboto({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
+});
 
 export default function CreatePage() {
     const [indexToShow, setIndexToShow] = useState(0);
@@ -260,15 +267,18 @@ export default function CreatePage() {
             onImagesChange={(images) => setImages(images)}
             onVideoChange={(video) => setVideo(video)} />,
 
+        <CreateMilestones />,
+
         <Verify
             images={images}
             video={video ?? null}
             formData={formData} />,
+
     ];
 
     return (
         <div className="container md:w-3/5 bg-slate-300 dark:bg-slate-800 shadow-lg shadow-purple-200 mt-18 min-h-screen p-8 rounded-lg border mx-auto">
-            <div className="text-center text-3xl">CREATE CAMPAIGN</div>
+            <div className={"text-center text-3xl "+roboto.className}>Create Fundraising Campaign</div>
 
             {/* Hot Toast Notification */}
             {/* <Toaster /> */}
@@ -278,26 +288,32 @@ export default function CreatePage() {
                 <div className="flex flex-col justify-center ">
                     <ul className="steps steps-horizontal md:mx-auto mx-1">
                         <li
-                            // onClick={() => setIndexToShow(0)}
+                             onClick={() => setIndexToShow(0)}
                             className={"step " + (indexToShow >= 0 ? "step-primary" : "")}
                         >
                             Basic Information
                         </li>
                         <li
-                            // onClick={() => setIndexToShow(1)}
+                             onClick={() => setIndexToShow(1)}
                             className={"step " + (indexToShow >= 1 ? "step-primary" : "")}
                         >
                             Details
                         </li>
                         <li
-                            // onClick={() => setIndexToShow(2)}
+                             onClick={() => setIndexToShow(2)}
                             className={"step " + (indexToShow >= 2 ? "step-primary" : "")}
                         >
                             Media
                         </li>
                         <li
-                            // onClick={() => setIndexToShow(3)}
+                            onClick={() => setIndexToShow(3)}
                             className={"step " + (indexToShow >= 3 ? "step-primary" : "")}
+                        >
+                            Milestones
+                        </li>
+                        <li
+                             onClick={() => setIndexToShow(4)}
+                            className={"step " + (indexToShow >= 4 ? "step-primary" : "")}
                         >
                             Verify
                         </li>

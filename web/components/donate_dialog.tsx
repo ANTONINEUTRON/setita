@@ -24,6 +24,7 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
 
     // Calculate the total amount of all milestones
     const totalMilestoneAmount = milestones.reduce((acc, milestone) => acc + milestone.amount, 0);
+    
     // Connection to Solana
     const connection = new Connection(HELIUS_ENDPOINT);
 

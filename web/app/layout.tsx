@@ -3,7 +3,6 @@ import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/libs/constants';
 import { Mulish, Poppins, Roboto } from '@next/font/google';
-import { OktoProvider, BuildType } from 'okto-sdk-react';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/footer';
 import { JotaiProvider } from '@/libs/providers/jotai_provider';

@@ -30,23 +30,21 @@ export default function MilestoneItem({ onDescriptionChange, onAmountChange, onD
     // }, [localMilestone]);
 
     return (
-        <div className="milestone-container">
-            <div className="">
-                <div className="mt-8">
-                    <div className="text-lg flex justify-between items-center">
-                        <span>Milestone {index + 1}</span>
-                        <div onClick={onRemove} className="btn btn-sm btn-circle btn-ghost">X</div>
-                    </div>
-                    <div className="rounded-md bg-slate-800 text-lg border p-2 flex items-center gap-2 m-2">
-                        <input
-                            type="text"
-                            className="grow bg-inherit outline-none"
-                            id="description"
-                            placeholder="Enter milestone description"
-                            value={milestone.description}
-                            onChange={(e) => onDescriptionChange(e.target.value)}
-                        />
-                    </div>
+        <div className="w-full md:m-4">
+            <div className="mt-8">
+                <div className="text-lg flex justify-between items-center">
+                    <span>Milestone {index + 1}</span>
+                    <div onClick={onRemove} className="btn btn-sm btn-circle btn-ghost">X</div>
+                </div>
+                <div className="rounded-md bg-slate-800 text-lg border p-2 flex items-center gap-2 m-2">
+                    <input
+                        type="text"
+                        className="grow bg-inherit outline-none"
+                        id="description"
+                        placeholder="Enter milestone description"
+                        value={milestone.description}
+                        onChange={(e) => onDescriptionChange(e.target.value)}
+                    />
                 </div>
             </div>
 
