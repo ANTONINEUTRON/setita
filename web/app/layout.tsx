@@ -2,7 +2,7 @@ import './global.css';
 import { SolanaProvider } from '@/components/solana/solana-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { APP_NAME } from '@/libs/constants';
-import { Mulish, Poppins, Roboto } from '@next/font/google';
+import { Mulish, Poppins, Roboto } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/footer';
 import { JotaiProvider } from '@/libs/providers/jotai_provider';
@@ -16,7 +16,6 @@ const mulish = Mulish({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
 });
-
 
 const roboto = Roboto({
   subsets: ['latin'],

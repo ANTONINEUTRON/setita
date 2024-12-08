@@ -11,13 +11,14 @@ import { useRef, useState } from "react";
 import { MdAddLink, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Category } from "@/libs/types/category";
+import { Milestone } from "@/libs/types/milestone";
 import axios from "axios";
 import {  useWallet } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import { HELIUS_ENDPOINT } from "@/libs/constants";
 import { useRouter } from "next/navigation";
-import { Roboto } from '@next/font/google';
-import CreateMilestones from "@/components/campaign_creationg_sections/create_milestones";
+import { Roboto } from 'next/font/google';
+import AddMilestones from "@/components/campaign_creationg_sections/add_milestones";
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -32,10 +33,11 @@ export default function CreatePage() {
         location: "",
         category: Category.education,
         goal: { amount: 0, currency: supportedCurrencies[0].name },
-        supportedCurrencies: [],
+        supportedCurrencies: [supportedCurrencies[1].name],//USDC (which is at this index) by default
         images: [],
         duration: null,
         video: "",
+        milestones: []
     });
     const [images, setImages] = useState<File[]>([]);
     const [video, setVideo] = useState<File | null>();
@@ -69,6 +71,14 @@ export default function CreatePage() {
             toast.error("Location is required");
             return false;
         }
+        if (!formData.category) {
+            toast.error("Category is required");
+            return false;
+        }
+        if ((formData?.goal?.amount ?? 0) <= 0) {
+            toast.error("Goal amount must be greater than zero");
+            return false;
+        }
         return true;
     };
 
@@ -95,6 +105,13 @@ export default function CreatePage() {
         }
         return true;
     };
+    const validateMilestones = () => {
+        // if (images.length === 0) {
+        //     toast.error("At least one image is required");
+        //     return false;
+        // }
+        return true;
+    };
 
     const validateForm = () => {
         return validateBasicInformation() && validateFundraisingDetails() && validateMedia();
@@ -108,9 +125,10 @@ export default function CreatePage() {
         if (indexToShow === 0) {
             isValid = validateBasicInformation();
         } else if (indexToShow === 1) {
-            isValid = validateFundraisingDetails();
-        } else if (indexToShow === 2) {
+            // isValid = validateFundraisingDetails();
             isValid = validateMedia();
+        } else if (indexToShow === 2) {
+            isValid = validateMilestones();
         }
 
         // Move to the next section if validation passes
@@ -207,9 +225,10 @@ export default function CreatePage() {
 
             try {
                 // Perform creation transaction
-                await performCreationTransaction();
+                // await performCreationTransaction();
 
                 // save video and media files
+                toast("Uploading media");
                 const { imageUrls, videoUrl } = await saveMediaFiles();
                 
 
@@ -235,6 +254,7 @@ export default function CreatePage() {
 
                 toast.success("Campaign Created Successfully!");
 
+                router.replace("/app/")
             } catch (error) {
                 // toast.error("An error occured while creating this campaign");
             }
@@ -247,19 +267,25 @@ export default function CreatePage() {
             title={formData.title}
             description={formData.description}
             location={formData.location ?? ""}
-            onDescriptionChange={(description) => updateFormData("description", description)}
-            onLocationChange={(location) => updateFormData("location", location)}
-            onTitleChange={(title) => updateFormData("title", title)} />,
-
-        <FundraisingDetails
             category={formData.category}
-            duration={formData?.duration ?? []}
             goal={formData.goal!}
             supportedCurrencies={formData.supportedCurrencies}
+            onDescriptionChange={(description) => updateFormData("description", description)}
+            onLocationChange={(location) => updateFormData("location", location)}
+            onTitleChange={(title) => updateFormData("title", title)} 
             onCategoryChange={(category) => updateFormData("category", category)}
-            onDurationChange={(dates) => updateFormData("duration", dates)}
             onGoalChange={(goal) => updateFormData("goal", goal)}
             onSupportedCurrencyChange={(currencies) => updateFormData("supportedCurrencies", currencies)} />,
+
+        // <FundraisingDetails
+        //     category={formData.category}
+        //     duration={formData?.duration ?? []}
+        //     goal={formData.goal!}
+        //     supportedCurrencies={formData.supportedCurrencies}
+        //     onCategoryChange={(category) => updateFormData("category", category)}
+        //     onDurationChange={(dates) => updateFormData("duration", dates)}
+        //     onGoalChange={(goal) => updateFormData("goal", goal)}
+        //     onSupportedCurrencyChange={(currencies) => updateFormData("supportedCurrencies", currencies)} />,
 
         <Media
             images={images}
@@ -267,7 +293,12 @@ export default function CreatePage() {
             onImagesChange={(images) => setImages(images)}
             onVideoChange={(video) => setVideo(video)} />,
 
-        <CreateMilestones />,
+        <AddMilestones 
+            milestones={formData.milestones!}
+            selectedCurrency={formData.goal!.currency}
+            onMilestoneChange={(updatedMilestones)=>{
+                updateFormData("milestones", updatedMilestones);
+            }}/>,
 
         <Verify
             images={images}
@@ -280,9 +311,6 @@ export default function CreatePage() {
         <div className="container md:w-3/5 bg-slate-300 dark:bg-slate-800 shadow-lg shadow-purple-200 mt-18 min-h-screen p-8 rounded-lg border mx-auto">
             <div className={"text-center text-3xl "+roboto.className}>Create Fundraising Campaign</div>
 
-            {/* Hot Toast Notification */}
-            {/* <Toaster /> */}
-
             {/* Form Goes here */}
             <div className="mt-8 min-h-[80vh] flex flex-col justify-between">
                 <div className="flex flex-col justify-center ">
@@ -291,29 +319,29 @@ export default function CreatePage() {
                              onClick={() => setIndexToShow(0)}
                             className={"step " + (indexToShow >= 0 ? "step-primary" : "")}
                         >
-                            Basic Information
+                            Campaign Details
                         </li>
-                        <li
+                        {/* <li
                              onClick={() => setIndexToShow(1)}
                             className={"step " + (indexToShow >= 1 ? "step-primary" : "")}
                         >
                             Details
-                        </li>
+                        </li> */}
                         <li
-                             onClick={() => setIndexToShow(2)}
-                            className={"step " + (indexToShow >= 2 ? "step-primary" : "")}
+                             onClick={() => setIndexToShow(1)}
+                            className={"step " + (indexToShow >= 1 ? "step-primary" : "")}
                         >
                             Media
                         </li>
                         <li
-                            onClick={() => setIndexToShow(3)}
-                            className={"step " + (indexToShow >= 3 ? "step-primary" : "")}
+                            onClick={() => setIndexToShow(2)}
+                            className={"step " + (indexToShow >= 2 ? "step-primary" : "")}
                         >
                             Milestones
                         </li>
                         <li
-                             onClick={() => setIndexToShow(4)}
-                            className={"step " + (indexToShow >= 4 ? "step-primary" : "")}
+                             onClick={() => setIndexToShow(3)}
+                            className={"step " + (indexToShow >= 3 ? "step-primary" : "")}
                         >
                             Verify
                         </li>
@@ -325,7 +353,7 @@ export default function CreatePage() {
                         <CustomButton
                             onClick={() => setIndexToShow(indexToShow - 1)}
                             icon={<MdArrowBackIos />}
-                            text="Go Back" />
+                            text="Previous" />
                     ) : (
                         <div></div>
                     )}

@@ -20,9 +20,9 @@ export const supportedCurrencies: SupportCurrency[] = [
         address: "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB", 
         decimals: 6,
     },
-    {
-        name: "SEND",
-        address: "SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa", 
-        decimals: 9,
-    },
+    // {
+    //     name: "SEND",
+    //     address: "SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa", 
+    //     decimals: 9,
+    // },
 ];

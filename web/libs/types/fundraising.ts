@@ -1,6 +1,7 @@
 // Fundraising Camapaign
 
 import { CampaignGoal } from "./campaign_goal";
+import { Milestone } from "./milestone";
 
 export interface Fundraising{
     id: string,
@@ -22,5 +23,6 @@ export interface CampaignDetails{
     supportedCurrencies: string[],
     images: any[],
     video?: any,
+    milestones?: Milestone[]
 }
  
