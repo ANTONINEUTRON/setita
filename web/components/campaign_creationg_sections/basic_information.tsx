@@ -223,7 +223,7 @@ export default function BasicInformation({
 
                 {availableCurrencies.map((currency) => (
                     // <div className="form-control">
-                    <label className="label cursor-pointer">
+                    <label key={currency.address} className="label cursor-pointer">
                         <input type="checkbox"
                             key={currency.address} 
                             onChange={() => handleCurrencyChange(currency.name)} 

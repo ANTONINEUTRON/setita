@@ -23,7 +23,7 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
     const [userBalance, setUserbalance] = useState(0);
 
     // Calculate the total amount of all milestones
-    const totalMilestoneAmount = milestones.reduce((acc, milestone) => acc + milestone.amount, 0);
+    const totalMilestoneAmount = milestones.reduce((acc, milestone) => acc + (milestone.amount ?? 0), 0);
     
     // Connection to Solana
     const connection = new Connection(HELIUS_ENDPOINT);
@@ -197,7 +197,7 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
                 </FormItem>
 
                 {/* Milestone UI */}
-                <div>
+                {/* <div>
                     {milestones.map((milestone, index) => (
                         <MilestoneItem
                             key={index}
@@ -209,7 +209,7 @@ export default function DonateDialog({ campaign }: { campaign: Fundraising }) {
                             onDateChange = {(dte)=>handleMilestoneChange(index, {...milestone, date: dte})}
                         />
                     ))}
-                </div>
+                </div> */}
 
                 {/* Display error if total milestone amount exceeds total donation */}
                 {error && <p className="text-red-500">{error}</p>}

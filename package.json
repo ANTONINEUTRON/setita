@@ -15,6 +15,7 @@
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.0",
     "@dialectlabs/blinks": "^0.9.3",
+    "@privy-io/react-auth": "^1.96.1",
     "@react-oauth/google": "^0.12.1",
     "@solana-developers/preset-next": "3.0.1",
     "@solana/actions": "^1.6.4",

@@ -32,7 +32,7 @@ export default function CreatePage() {
         description: "",
         location: "",
         category: Category.education,
-        goal: { amount: 0, currency: supportedCurrencies[0].name },
+        goal: { amount: 0, currency: supportedCurrencies[1].name },
         supportedCurrencies: [supportedCurrencies[1].name],//USDC (which is at this index) by default
         images: [],
         duration: null,
@@ -87,10 +87,10 @@ export default function CreatePage() {
             toast.error("Category is required");
             return false;
         }
-        if ((formData?.duration ?? []).length === 0) {
-            toast.error("Duration must be specified");
-            return false;
-        }
+        // if ((formData?.duration ?? []).length === 0) {
+        //     toast.error("Duration must be specified");
+        //     return false;
+        // }
         if ((formData?.goal?.amount ?? 0) <= 0) {
             toast.error("Goal amount must be greater than zero");
             return false;
@@ -295,6 +295,7 @@ export default function CreatePage() {
 
         <AddMilestones 
             milestones={formData.milestones!}
+            goal={formData.goal!}
             selectedCurrency={formData.goal!.currency}
             onMilestoneChange={(updatedMilestones)=>{
                 updateFormData("milestones", updatedMilestones);

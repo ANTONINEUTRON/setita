@@ -62,11 +62,25 @@ export default function Verify({ formData, images, video }: VerifyProps) {
                     </div>
                 </div>
 
-
                 <div className="my-4">
                     <div className="text-lg font-semibold">Target Amount</div>
                     <div>
                         {formData?.goal?.amount || "N/A"} {formData?.goal?.currency || ""}
+                    </div>
+                </div>
+
+
+                <div className="my-4">
+                    <div className="text-lg font-semibold">Milestones</div>
+                    <div>
+                        {formData?.milestones?.map(
+                            (milestone, index)=>(
+                                <div>
+                                    Milestone {index+1}
+                                    <div className="pl-4">{milestone.description} - {milestone.amount + " " + formData?.goal?.currency}</div>
+                                </div>
+                            )
+                        )}
                     </div>
                 </div>
 
