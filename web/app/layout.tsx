@@ -1,11 +1,8 @@
 import './global.css';
-import { SolanaProvider } from '@/components/solana/solana-provider';
-import { ReactQueryProvider } from './react-query-provider';
-import { APP_NAME } from '@/libs/constants';
 import { Mulish, Poppins, Roboto } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/footer';
-import { JotaiProvider } from '@/libs/providers/jotai_provider';
+import Providers from '@/components/providers/providers';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -46,14 +43,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={'min-h-screen '+mulish.className}>
-        <JotaiProvider>
-          <ReactQueryProvider>
-              <SolanaProvider>
-                <Toaster />
-                {children}
-              </SolanaProvider>
-          </ReactQueryProvider>
-        </JotaiProvider>
+        <Providers>
+          <Toaster />
+          {children}
+        </Providers>
+              
         <div className='mt-8'>
           <Footer />
         </div>

@@ -23,7 +23,7 @@ export default function AppPage(){
 
     useEffect(()=>{
         init();
-    },[connected,])
+    },[connected])
 
 
     async function init() {
@@ -100,6 +100,7 @@ function EmptyCampaign() {
     const { connected, } = useWallet(); // Get wallet connection info
     const router = useRouter(); // For navigation
     const [showPrompt, setShowPrompt] = useState(false); // Track if we need to show wallet connect prompt
+    // const { ready, authenticated, user, login, logout } = usePrivy();
 
     const showCreateCampaignForm = async () => {
         if (!connected) {
@@ -117,6 +118,11 @@ function EmptyCampaign() {
             // If the wallet is connected, redirect to /app/create
             router.push('/app/create/');
         }
+
+        // if (ready) {
+        //     console.log("privy ready");
+        // }
+
     },[connected])
 
     return (
@@ -151,6 +157,7 @@ function EmptyCampaign() {
                             </div>
                             <div className="flex flex-col md:flex-row justify-center items-center">
                                 <WalletButton />
+                                {/* <button onClick={login}>Privy</button> */}
                                 {/* <div className="m-5">OR</div>
                                 <ExtendedButton
                                     text="Sign in With Google"
@@ -225,8 +232,9 @@ function FeaturedCampaigns(){
 
             <div className="grid grid-cols-1 md:grid-cols-3">
                 {
-                    campaigns.map((campaign)=>(
+                    campaigns.map((campaign,index)=>(
                         <BoxCampaignItem 
+                            key={index}
                             campaign={campaign} />
                     ))
                 }

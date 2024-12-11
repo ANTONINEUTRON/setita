@@ -7,11 +7,14 @@ import {  useEffect,  useState } from "react";
 import WalletButton from "../buttons/wallet_button";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function AppBar(){
     const [isUserIn, setIsUserIn] = useState(false);
     const { connected,connecting, disconnect,publicKey } = useWallet(); 
     const [address, setAddress] = useState("");
+    const { ready, authenticated, user, login, logout } = usePrivy();
+
 
     useEffect(() => {
         setIsUserIn(connected);  
@@ -20,6 +23,22 @@ export default function AppBar(){
             setAddress(pKey!.slice(0, 6) + "......." + pKey!.slice(pKey!.length - 5, pKey!.length - 1));
         }
     }, [connected]);
+
+    useEffect(()=>{
+        if(ready){
+            console.log("Is Ready");
+            if(!authenticated){
+                login();
+            }else{
+                console.log("Logged in");
+                console.log(user?.id);
+                
+            }
+        }else{
+            console.log("Is not ready");
+            
+        }
+    },[ready,authenticated])
 
     return (
         <div className="navbar bg-primary container mx-auto rounded-md text-white">
